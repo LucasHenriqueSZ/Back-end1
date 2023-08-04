@@ -1,0 +1,15 @@
+Card number: 6M1A42BG; Name: Joao; Document: RG: 105582116; Date association: 2023-08-03
+Card number: S78MTQMY; Name: lucas; Document: CPF: 58511951008; Date association: 2023-08-03
+Card number: ARNT9K4P; Name: Maria; Document: RG: 490909887; Date association: 2023-08-03
+Card number: 5DUTJER8; Name: Felipe; Document: CPF: 97184679040; Date association: 2023-08-03
+Card number: UGPSXVW6; Name: Gustavo; Document: CPF: 14752484072; Date association: 2023-08-03
+Card number: TY8UDH0B; Name: Lucia; Document: RG: 484787391; Date association: 2023-08-03
+Card number: QD0CLJO7; Name: Renato; Document: RG: 289821010; Date association: 2023-08-03
+Card number: FCWNA0T8; Name: Julia; Document: CPF: 98134350038; Date association: 2023-08-03
+Card number: 2CSNR84H; Name: Jose; Document: RG: 346567932; Date association: 2023-08-03
+Card number: S545RWH4; Name: Nathan; Document: CPF: 99666772086; Date association: 2023-08-03
+Card number: 1AVQWIEB; Name: Juliana; Document: CPF: 47792426068; Date association: 2023-08-03
+Card number: PP4SJFEX; Name: Matheus; Document: RG: 356038919; Date association: 2023-08-03
+Card number: 5K0LYVAP; Name: Pedro; Document: RG: 271567910; Date association: 2023-08-03
+Card number: 5C074GS3; Name: Marcelo; Document: CPF: 79417337068; Date association: 2023-08-03
+
