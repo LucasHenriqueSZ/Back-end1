@@ -84,7 +84,7 @@ public class MemberDao {
 
             Files.move(tempFile.toPath(), Paths.get(FILE_PATH), StandardCopyOption.REPLACE_EXISTING);
         } catch (Exception e) {
-            throw new IllegalArgumentException("Falha durante a exclusão: " + e.getMessage());
+            throw new IllegalArgumentException("Falha durante o update: " + e.getMessage());
         }
     }
 
@@ -143,7 +143,7 @@ public class MemberDao {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
             int total = 0;
-            while (reader.readLine() != null && !reader.readLine().isEmpty()) {
+            while (reader.readLine() != null) {
                 total++;
             }
             reader.close();
