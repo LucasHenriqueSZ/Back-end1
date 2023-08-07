@@ -1,22 +1,23 @@
-package model;
+package domain.socio.documentos;
 
-public class Rg implements Document {
+import com.google.gson.annotations.SerializedName;
 
-    private String number;
+public class Rg implements Documento {
 
-    public Rg(String number) {
-        if (!isValidRg(number)) {
-            throw new IllegalArgumentException("O RG é inválido!");
-        }
-        this.number = number.trim();
+    @SerializedName("rg")
+    private String numero;
+
+    public Rg(String numero) {
+        setNumero(numero);
     }
 
-    private boolean isValidRg(String number) {
-        if (number == null || number.trim().isEmpty() || !number.matches("[0-9X]+") || number.length() != 9) {
+    @Override
+    public boolean validarDocumento() {
+        if (numero == null || numero.trim().isEmpty() || !numero.matches("[0-9X]+") || numero.length() != 9) {
             return false;
         }
 
-        String verifiedNumber = number.trim();
+        String verifiedNumber = numero.trim();
 
         String lastDigit = verifiedNumber.substring(verifiedNumber.length() - 1);
 
@@ -28,11 +29,11 @@ public class Rg implements Document {
 
         verifiedNumber = verifiedNumber.substring(0, verifiedNumber.length() - 1);
 
-        String digito = discoverDigit(verifiedNumber);
+        String digito = descobrirDigito(verifiedNumber);
         return digito.equals(lastDigit);
     }
 
-    private String discoverDigit(String rg) {
+    private String descobrirDigito(String rg) {
         char[] digits = rg.toCharArray();
         int[] totals = new int[digits.length];
         int total = 0;
@@ -50,17 +51,16 @@ public class Rg implements Document {
         return String.valueOf(11 - resto);
     }
 
-    public String getNumber() {
-        return number;
+    public String getNumero() {
+        return numero;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
     @Override
-    public String getDocumentSting() {
-        return "RG: " + number;
+    public String toString() {
+        return "RG: " +  this.numero;
     }
-
 }

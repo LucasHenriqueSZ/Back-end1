@@ -4,7 +4,7 @@ import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
 
 import java.util.Random;
 
-public abstract class GenerateCardCode {
+public class GeradorCodigoCarteirinha {
 
     public static String getCardCode() {
         Random random = new Random();
