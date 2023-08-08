@@ -17,14 +17,16 @@ import java.util.Optional;
 
 public class SocioDao {
 
-    private static final String FILE_PATH = "socios.json";
+    private static SocioDao instance;
 
-    private static final Type SOCIOS_LIST_TYPE = new TypeToken<ArrayList<Socio>>() {
+    private final java.lang.String FILE_PATH = "dados/socios.json";
+
+    private final Type SOCIOS_LIST_TYPE = new TypeToken<ArrayList<Socio>>() {
     }.getType();
 
     private Gson gson;
 
-    public SocioDao() {
+    private SocioDao() {
         try {
             gson = new GsonBuilder()
                     .setPrettyPrinting()
@@ -41,44 +43,29 @@ public class SocioDao {
         }
     }
 
+    public static SocioDao getInstance() {
+        if (instance == null) {
+            instance = new SocioDao();
+        }
+        return instance;
+    }
+
     public void salvar(Socio socio) {
         try {
-            List<Socio> socios = carregarSocios();
             if (socio == null)
                 throw new IllegalArgumentException("Socio não pode ser nulo!");
             if (!socio.getDocumento().validarDocumento())
                 throw new IllegalArgumentException("Documento inválido!");
+
+            List<Socio> socios = carregarSocios();
             if (verificaExistenciaSocio(socio, socios))
                 throw new IllegalArgumentException("Socio ja cadastrado!");
 
             socios.add(socio);
 
-            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
-
-            writer.write(gson.toJson(socios, SOCIOS_LIST_TYPE));
-            writer.close();
+            salvarListaSocios(socios);
         } catch (Exception e) {
             throw new IllegalArgumentException("Falha ao realizar o cadastro: " + e.getMessage());
-        }
-    }
-
-    public List<Socio> carregarSocios() {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
-            StringBuilder arquivoJson = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                arquivoJson.append(line);
-            }
-            reader.close();
-            if (arquivoJson.toString().isEmpty())
-                return new ArrayList<>();
-
-            return gson.fromJson(arquivoJson.toString(), SOCIOS_LIST_TYPE);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -93,7 +80,7 @@ public class SocioDao {
                 throw new IllegalArgumentException("Nome deve conter no máximo 50 caracteres!");
 
             for (Socio s : socios) {
-                if (s.getDocumento().getNumero().equals(documentoOuNome) || s.getNome().equals(documentoOuNome))
+                if (s.getDocumento().getNumero().equals(documentoOuNome) || s.getNome().equalsIgnoreCase(documentoOuNome))
                     return Optional.of(s);
             }
 
@@ -124,10 +111,7 @@ public class SocioDao {
                     socios.remove(s);
                     socios.add(socioNovo);
 
-                    BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
-
-                    writer.write(gson.toJson(socios, SOCIOS_LIST_TYPE));
-                    writer.close();
+                    salvarListaSocios(socios);
                     return;
                 }
             }
@@ -149,17 +133,16 @@ public class SocioDao {
                 if (s.getCarteirinha().equals(carteirinha)) {
                     socios.remove(s);
 
-                    BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
-
-                    writer.write(gson.toJson(socios, SOCIOS_LIST_TYPE));
-                    writer.close();
-                    break;
+                    salvarListaSocios(socios);
+                    return;
                 }
             }
+            throw new IllegalArgumentException("Carteirinha não encontrada!");
         } catch (Exception e) {
             throw new IllegalArgumentException("Falha durante a exclusão: " + e.getMessage());
         }
     }
+
     public List<Socio> listarTodos() {
         return carregarSocios();
     }
@@ -180,6 +163,31 @@ public class SocioDao {
         return socios.size();
     }
 
+    private void salvarListaSocios(List<Socio> socios) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
+
+        writer.write(gson.toJson(socios, SOCIOS_LIST_TYPE));
+        writer.close();
+    }
+
+    private List<Socio> carregarSocios() {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+            StringBuilder arquivoJson = new StringBuilder();
+            java.lang.String line;
+            while ((line = reader.readLine()) != null) {
+                arquivoJson.append(line);
+            }
+            reader.close();
+            if (arquivoJson.toString().isEmpty())
+                return new ArrayList<>();
+
+            return gson.fromJson(arquivoJson.toString(), SOCIOS_LIST_TYPE);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Falha ao carregar os dados: " + e.getMessage());
+        }
+    }
+
     private boolean verificaExistenciaDocumento(Socio socio, List<Socio> socios) {
         for (Socio s : socios) {
             if (s.getDocumento().getNumero().equals(socio.getDocumento().getNumero()))
@@ -190,7 +198,7 @@ public class SocioDao {
 
     private boolean verificaExistenciaSocio(Socio socio, List<Socio> socios) {
         for (Socio s : socios) {
-            if (s.getDocumento().getNumero().equals(socio.getDocumento().getNumero()) || s.getNome().equals(socio.getNome()))
+            if (s.getDocumento().getNumero().equals(socio.getDocumento().getNumero()) || s.getNome().equalsIgnoreCase(socio.getNome()))
                 return true;
         }
         return false;

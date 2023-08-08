@@ -7,15 +7,15 @@ import java.time.LocalDate;
 
 public class Socio {
 
-    private String carteirinha;
+    private java.lang.String carteirinha;
 
-    private String nome;
+    private java.lang.String nome;
 
     private LocalDate dataAssociacao;
 
     private Documento documento;
 
-    public Socio(String name, Documento document) {
+    public Socio(java.lang.String name, Documento document) {
         setNome(name);
         setDocumento(document);
         setDataAssociacao(LocalDate.now());
@@ -25,19 +25,19 @@ public class Socio {
     public Socio() {
     }
 
-    public String getCarteirinha() {
+    public java.lang.String getCarteirinha() {
         return carteirinha;
     }
 
-    public void setCarteirinha(String carteirinha) {
+    public void setCarteirinha(java.lang.String carteirinha) {
         this.carteirinha = carteirinha;
     }
 
-    public String getNome() {
+    public java.lang.String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
+    public void setNome(java.lang.String nome) {
         if (nome == null || nome.trim().isEmpty())
             throw new IllegalArgumentException("Nome inválido!");
         if (nome.length() < 3)

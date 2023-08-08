@@ -1,0 +1,24 @@
+[
+  {
+    "carteirinha": "VOLDARUD",
+    "nome": "lucas hs",
+    "dataAssociacao": "07/08/2023",
+    "documento": {
+      "CLASSNAME": "domain.socio.documentos.Rg",
+      "DATA": {
+        "rg": "440799569"
+      }
+    }
+  },
+  {
+    "carteirinha": "HBS9W6DB",
+    "nome": "lucas henrique",
+    "dataAssociacao": "07/08/2023",
+    "documento": {
+      "CLASSNAME": "domain.socio.documentos.Rg",
+      "DATA": {
+        "rg": "507540530"
+      }
+    }
+  }
+]

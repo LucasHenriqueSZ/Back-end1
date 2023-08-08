@@ -1,10 +1,16 @@
 package domain;
 
+import util.GeradorCodigo;
+
 public class Categoria {
+
+    private String codigo;
+
     private String nome;
 
     public Categoria(String nome) {
         setNome(nome);
+        setCodigo(GeradorCodigo.getCodigo());
     }
 
     public String getNome() {
@@ -12,6 +18,21 @@ public class Categoria {
     }
 
     public void setNome(String nome) {
+        if (nome == null || nome.trim().isEmpty())
+            throw new IllegalArgumentException("Nome não pode ser nulo ou vazio!");
+        if (nome.length() < 3)
+            throw new IllegalArgumentException("Nome deve conter no mínimo 3 caracteres!");
+        if (nome.length() > 50)
+            throw new IllegalArgumentException("Nome deve conter no máximo 50 caracteres!");
+
         this.nome = nome;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 }

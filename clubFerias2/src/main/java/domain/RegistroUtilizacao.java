@@ -13,7 +13,7 @@ public class RegistroUtilizacao {
 
     private LocalTime horaSaida;
 
-    private Socio socio;
+    private Socio carteirinhaSocio;
 
     private Espaco espaco;
 
@@ -21,7 +21,7 @@ public class RegistroUtilizacao {
         setDataUtilizacao(dataUtilizacao);
         setHoraEntrada(horaEntrada);
         setHoraSaida(horaSaida);
-        setSocio(socio);
+        setCarteirinhaSocio(socio);
         setEspaco(espaco);
     }
 
@@ -52,12 +52,12 @@ public class RegistroUtilizacao {
         this.horaSaida = horaSaida;
     }
 
-    public Socio getSocio() {
-        return socio;
+    public Socio getCarteirinhaSocio() {
+        return carteirinhaSocio;
     }
 
-    public void setSocio(Socio socio) {
-        this.socio = socio;
+    public void setCarteirinhaSocio(Socio carteirinhaSocio) {
+        this.carteirinhaSocio = carteirinhaSocio;
     }
 
     public Espaco getEspaco() {

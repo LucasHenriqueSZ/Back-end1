@@ -1,0 +1,11 @@
+[
+  {
+    "codigo": "9510S",
+    "nome": "Quadra de futebol",
+    "descricao": "Uma quadra de futebol indoor",
+    "lotacaoMaxima": 40,
+    "categorias": [
+      "DFYU8"
+    ]
+  }
+]

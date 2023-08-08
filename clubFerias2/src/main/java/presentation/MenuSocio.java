@@ -10,9 +10,22 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
-public abstract class MenuSocio {
+public class MenuSocio {
 
-    public static void menuSocio(Scanner scanner) {
+    private static MenuSocio instance;
+
+    private MenuSocio() {
+    }
+
+    public static MenuSocio getInstance() {
+        if (instance == null) {
+            instance = new MenuSocio();
+        }
+        return instance;
+    }
+
+    public void menuSocio(Scanner scanner) {
+
         System.out.println("Escolha uma opção:");
         System.out.println("1 - cadastrar sócio");
         System.out.println("2 - Buscar sócio");
@@ -22,7 +35,7 @@ public abstract class MenuSocio {
         System.out.println("6 - Voltar ao menu principal");
 
         System.out.println("Digite o número da opção desejada:");
-        String opcao = scanner.nextLine();
+        java.lang.String opcao = scanner.nextLine();
 
         switch (opcao) {
             case "1":
@@ -32,16 +45,16 @@ public abstract class MenuSocio {
                 buscarSocio(scanner);
                 break;
             case "3":
-                //atualizarSocio(scanner);
+                atualizarSocio(scanner);
                 break;
             case "4":
-                //removerSocio(scanner);
+                removerSocio(scanner);
                 break;
             case "5":
                 listarTodosSocios(scanner);
                 break;
             case "6":
-                MenuPrincipal.menuPricipal(scanner);
+                MenuPrincipal.getInstance().menuPricipal(scanner);
                 break;
             default:
                 System.out.println("Opção inválida");
@@ -49,9 +62,67 @@ public abstract class MenuSocio {
         }
     }
 
-    private static void listarTodosSocios(Scanner scanner) {
-        SocioDao socioDao = new SocioDao();
-        List<Socio> socios = socioDao.listarTodos();
+    private void atualizarSocio(Scanner scanner) {
+        try {
+            scanner.nextLine();
+            System.out.println("Digite o nome/documento do sócio que deseja atualizar:");
+            java.lang.String nomeOuDocumento = scanner.nextLine();
+
+            Optional<Socio> socio = SocioDao.getInstance().buscarPorDocumentoOuNome(nomeOuDocumento);
+            if (socio.isEmpty()) {
+                throw new Exception("Sócio não encontrado");
+            }
+            System.out.println("Digite o novo nome do sócio:");
+            java.lang.String nome = scanner.nextLine();
+            socio.get().setNome(nome);
+            do {
+                System.out.println("Digite o novo documento(RG/CPF) do sócio:");
+                java.lang.String documento = scanner.nextLine();
+                if (documento.length() == 11) {
+                    socio.get().setDocumento(new Cpf(documento));
+                } else if (documento.length() == 9) {
+                    socio.get().setDocumento(new Rg(documento));
+                } else {
+                    System.out.println("Documento inválido");
+                }
+            } while (socio.get().getDocumento() == null);
+
+            SocioDao.getInstance().atualizar(socio.get(), socio.get().getCarteirinha());
+            System.out.println("Sócio atualizado com sucesso!");
+            System.out.println();
+            menuSocio(scanner);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            atualizarSocio(scanner);
+        }
+    }
+
+    private void removerSocio(Scanner scanner) {
+        try {
+            System.out.println("Digite a nome ou documento do sócio que deseja remover:");
+            String nomeOudocumento = scanner.nextLine();
+
+            Optional<Socio> socio = SocioDao.getInstance().buscarPorDocumentoOuNome(nomeOudocumento);
+            if (socio.isEmpty()) {
+                throw new Exception("Sócio não encontrado");
+            }
+
+            SocioDao.getInstance().deletar(socio.get().getCarteirinha());
+
+            System.out.println("Sócio removido com sucesso!");
+            System.out.println();
+            menuSocio(scanner);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            removerSocio(scanner);
+        }
+    }
+
+    private void listarTodosSocios(Scanner scanner) {
+
+        List<Socio> socios = SocioDao.getInstance().listarTodos();
         AsciiTable at = new AsciiTable();
         at.addRule();
         at.addRow("Carteirinha", "Nome", "Data de Associação", "Documento");
@@ -65,14 +136,13 @@ public abstract class MenuSocio {
         menuSocio(scanner);
     }
 
-    private static void buscarSocio(Scanner scanner) {
+    private void buscarSocio(Scanner scanner) {
         try {
             scanner.nextLine();
             System.out.println("Digite o nome/Documento do sócio:");
-            String nomeOudocumento = scanner.nextLine();
+            java.lang.String nomeOudocumento = scanner.nextLine();
 
-            SocioDao socioDao = new SocioDao();
-            Optional<Socio> socio = socioDao.buscarPorDocumentoOuNome(nomeOudocumento);
+            Optional<Socio> socio = SocioDao.getInstance().buscarPorDocumentoOuNome(nomeOudocumento);
             if (socio.isEmpty()) {
                 throw new Exception("Sócio não encontrado");
             }
@@ -85,7 +155,6 @@ public abstract class MenuSocio {
             System.out.println(at.render());
             System.out.println();
 
-
             opcoesBuscaSocio(scanner);
 
         } catch (Exception e) {
@@ -94,8 +163,8 @@ public abstract class MenuSocio {
         }
     }
 
-    private static void opcoesBuscaSocio(Scanner scanner) {
-        String opcao;
+    private void opcoesBuscaSocio(Scanner scanner) {
+        java.lang.String opcao;
         do {
             System.out.println("1 - Voltar ao menu principal");
             System.out.println("2 - Buscar outro sócio");
@@ -106,21 +175,21 @@ public abstract class MenuSocio {
 
 
         if (opcao.equals("1")) {
-            MenuPrincipal.menuPricipal(scanner);
+            MenuPrincipal.getInstance().menuPricipal(scanner);
         } else if (opcao.equals("2")) {
             buscarSocio(scanner);
         }
     }
 
-    private static void cadastrarSocio(Scanner scanner) {
+    private void cadastrarSocio(Scanner scanner) {
         try {
             Socio socio = null;
 
             scanner.nextLine();
             System.out.println("Digite o nome do sócio:");
-            String nome = scanner.nextLine();
+            java.lang.String nome = scanner.nextLine();
             System.out.println("Escolha o tipo de documento:");
-            String opcao;
+            java.lang.String opcao;
             do {
                 System.out.println("1 - CPF");
                 System.out.println("2 - RG");
@@ -133,17 +202,15 @@ public abstract class MenuSocio {
 
             if (opcao.equals("1")) {
                 System.out.println("Digite o número do CPF:");
-                String cpf = scanner.nextLine();
+                java.lang.String cpf = scanner.nextLine();
                 socio = new Socio(nome, new Cpf(cpf));
             } else if (opcao.equals("2")) {
                 System.out.println("Digite o número do RG:");
-                String rg = scanner.nextLine();
+                java.lang.String rg = scanner.nextLine();
                 socio = new Socio(nome, new Rg(rg));
             }
 
-
-            SocioDao socioDao = new SocioDao();
-            socioDao.salvar(socio);
+            SocioDao.getInstance().salvar(socio);
 
             System.out.println("Sócio cadastrado com sucesso!");
             menuSocio(scanner);
@@ -153,8 +220,8 @@ public abstract class MenuSocio {
         }
     }
 
-    private static void opcoesExceptionCadastrarSocio(Scanner scanner) {
-        String opcao;
+    private void opcoesExceptionCadastrarSocio(Scanner scanner) {
+        java.lang.String opcao;
         do {
             System.out.println("1 - Voltar ao menu principal");
             System.out.println("2 - Realizar novo cadastro de socio");
@@ -164,7 +231,7 @@ public abstract class MenuSocio {
         } while (!opcao.equals("1") && !opcao.equals("2"));
 
         if (opcao.equals("1")) {
-            MenuPrincipal.menuPricipal(scanner);
+            MenuPrincipal.getInstance().menuPricipal(scanner);
         } else if (opcao.equals("2")) {
             cadastrarSocio(scanner);
         }
