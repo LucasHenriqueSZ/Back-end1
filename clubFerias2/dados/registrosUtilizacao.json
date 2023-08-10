@@ -1,0 +1,42 @@
+[
+  {
+    "codigoRegistro": "JGZZG",
+    "dataUtilizacao": "09/08/2023",
+    "horaEntrada": "09::00::00",
+    "horaSaida": "10::00::00",
+    "carteirinhaSocio": "B34F9IMD",
+    "codigoEspaco": "M5RV8"
+  },
+  {
+    "codigoRegistro": "BY8O7",
+    "dataUtilizacao": "07/05/2023",
+    "horaEntrada": "13::00::00",
+    "horaSaida": "15::30::00",
+    "carteirinhaSocio": "B34F9IMD",
+    "codigoEspaco": "IDZ6F"
+  },
+  {
+    "codigoRegistro": "JGQ0A",
+    "dataUtilizacao": "15/07/2023",
+    "horaEntrada": "12::00::00",
+    "horaSaida": "14::00::00",
+    "carteirinhaSocio": "JFCM6N4M",
+    "codigoEspaco": "BFT2L"
+  },
+  {
+    "codigoRegistro": "K0WTG",
+    "dataUtilizacao": "05/07/2023",
+    "horaEntrada": "20::00::00",
+    "horaSaida": "22::00::00",
+    "carteirinhaSocio": "GEJF1H37",
+    "codigoEspaco": "BFT2L"
+  },
+  {
+    "codigoRegistro": "1UUQH",
+    "dataUtilizacao": "15/04/2023",
+    "horaEntrada": "15::00::00",
+    "horaSaida": "20::00::00",
+    "carteirinhaSocio": "HFK0D7L0",
+    "codigoEspaco": "BFT2L"
+  }
+]

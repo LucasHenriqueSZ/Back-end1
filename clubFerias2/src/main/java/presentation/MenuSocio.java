@@ -102,38 +102,42 @@ public class MenuSocio {
         try {
             System.out.println("Digite a nome ou documento do sócio que deseja remover:");
             String nomeOudocumento = scanner.nextLine();
-
             Optional<Socio> socio = SocioDao.getInstance().buscarPorDocumentoOuNome(nomeOudocumento);
-            if (socio.isEmpty()) {
-                throw new Exception("Sócio não encontrado");
+            if (socio.isPresent()) {
+                SocioDao.getInstance().deletar(socio.get().getCarteirinha());
+                System.out.println("Sócio removido com sucesso!");
+            } else {
+                System.out.println("Sócio não encontrado!");
             }
-
-            SocioDao.getInstance().deletar(socio.get().getCarteirinha());
-
-            System.out.println("Sócio removido com sucesso!");
-            System.out.println();
             menuSocio(scanner);
-
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            removerSocio(scanner);
+            System.out.println("Falha ao remover espaço: " + e.getMessage());
+            menuSocio(scanner);
         }
     }
 
     private void listarTodosSocios(Scanner scanner) {
-
-        List<Socio> socios = SocioDao.getInstance().listarTodos();
-        AsciiTable at = new AsciiTable();
-        at.addRule();
-        at.addRow("Carteirinha", "Nome", "Data de Associação", "Documento");
-        at.addRule();
-        for (Socio socio : socios) {
-            at.addRow(socio.getCarteirinha(), socio.getNome(), socio.getDataAssociacao().toString(), socio.getDocumento().toString());
-            at.addRule();
+        try {
+            List<Socio> socios = SocioDao.getInstance().listarTodos();
+            if (socios.isEmpty()) {
+                System.out.println("Não há sócios cadastrados");
+            } else {
+                AsciiTable at = new AsciiTable();
+                at.addRule();
+                at.addRow("Carteirinha", "Nome", "Data de Associação", "Documento");
+                at.addRule();
+                for (Socio socio : socios) {
+                    at.addRow(socio.getCarteirinha(), socio.getNome(), socio.getDataAssociacao().toString(), socio.getDocumento().toString());
+                    at.addRule();
+                }
+                System.out.println(at.render());
+                System.out.println("Total de sócios: " + socios.size());
+            }
+            menuSocio(scanner);
+        } catch (Exception e) {
+            System.out.println("Falha ao listar socios: " + e.getMessage());
+            menuSocio(scanner);
         }
-        System.out.println(at.render());
-        System.out.println();
-        menuSocio(scanner);
     }
 
     private void buscarSocio(Scanner scanner) {

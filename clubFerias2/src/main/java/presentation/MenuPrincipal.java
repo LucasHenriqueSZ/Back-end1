@@ -35,10 +35,10 @@ public class MenuPrincipal {
                 MenuEspaco.getInstance().menuEspaco(scanner);
                 break;
             case "3":
-                // menuRegistro.menuRegistro(scanner);
+                MenuRegistrosUtilizacao.getInstance().menuRegistroUtilizacao(scanner);
                 break;
             case "4":
-                //  menuRelatorio.menuRelatorio(scanner);
+                MenuRelatorios.getInstance().menuRelatorios(scanner);
                 break;
             case "5":
                 System.out.println("Obrigado por utilizar o sistema de gerenciamento do club de ferias da NewGo");

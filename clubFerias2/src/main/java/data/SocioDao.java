@@ -90,6 +90,25 @@ public class SocioDao {
         return Optional.empty();
     }
 
+    public Optional<Socio> buscaPorCarteirinha(String carteirinha){
+        try {
+            List<Socio> socios = carregarSocios();
+            if (carteirinha == null || carteirinha.isEmpty())
+                throw new IllegalArgumentException("Numero da carteirinha não pode ser nulo ou vazio!");
+            if (carteirinha.length() != 8)
+                throw new IllegalArgumentException("Numero da carteirinha deve conter 8 caracteres!");
+
+            for (Socio s : socios) {
+                if (s.getCarteirinha().equals(carteirinha))
+                    return Optional.of(s);
+            }
+
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Falha ao realizar a busca: " + e.getMessage());
+        }
+        return Optional.empty();
+    }
+
     public void atualizar(Socio socioNovo, String carteirinha) {
         try {
             List<Socio> socios = carregarSocios();

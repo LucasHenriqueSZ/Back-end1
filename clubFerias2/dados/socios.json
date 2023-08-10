@@ -1,23 +1,78 @@
 [
   {
-    "carteirinha": "VOLDARUD",
-    "nome": "lucas hs",
-    "dataAssociacao": "07/08/2023",
+    "carteirinha": "B34F9IMD",
+    "nome": "Maria Silva",
+    "dataAssociacao": "09/08/2023",
     "documento": {
-      "CLASSNAME": "domain.socio.documentos.Rg",
+      "CLASSNAME": "domain.socio.documentos.Cpf",
       "DATA": {
-        "rg": "440799569"
+        "cpf": "68881519054"
       }
     }
   },
   {
-    "carteirinha": "HBS9W6DB",
-    "nome": "lucas henrique",
-    "dataAssociacao": "07/08/2023",
+    "carteirinha": "JFCM6N4M",
+    "nome": "Joao Oliveira",
+    "dataAssociacao": "09/08/2023",
     "documento": {
       "CLASSNAME": "domain.socio.documentos.Rg",
       "DATA": {
-        "rg": "507540530"
+        "rg": "504099115"
+      }
+    }
+  },
+  {
+    "carteirinha": "H2AGCCB3",
+    "nome": "Ana Santos",
+    "dataAssociacao": "09/08/2023",
+    "documento": {
+      "CLASSNAME": "domain.socio.documentos.Cpf",
+      "DATA": {
+        "cpf": "11199875040"
+      }
+    }
+  },
+  {
+    "carteirinha": "GEJF1H37",
+    "nome": "Pedro Souza",
+    "dataAssociacao": "09/08/2023",
+    "documento": {
+      "CLASSNAME": "domain.socio.documentos.Cpf",
+      "DATA": {
+        "cpf": "19083168026"
+      }
+    }
+  },
+  {
+    "carteirinha": "HFK0D7L0",
+    "nome": "Camila Rodrigues",
+    "dataAssociacao": "09/08/2023",
+    "documento": {
+      "CLASSNAME": "domain.socio.documentos.Rg",
+      "DATA": {
+        "rg": "338804791"
+      }
+    }
+  },
+  {
+    "carteirinha": "7E0FIG1A",
+    "nome": "Larissa Costa",
+    "dataAssociacao": "09/08/2023",
+    "documento": {
+      "CLASSNAME": "domain.socio.documentos.Cpf",
+      "DATA": {
+        "cpf": "79577529003"
+      }
+    }
+  },
+  {
+    "carteirinha": "MI4B9MN0",
+    "nome": "Lucas Henrique",
+    "dataAssociacao": "09/08/2023",
+    "documento": {
+      "CLASSNAME": "domain.socio.documentos.Cpf",
+      "DATA": {
+        "cpf": "75222204081"
       }
     }
   }

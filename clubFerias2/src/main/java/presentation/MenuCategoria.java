@@ -2,6 +2,7 @@ package presentation;
 
 import data.CategoriaDao;
 import de.vandermeer.asciitable.AsciiTable;
+import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import domain.Categoria;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class MenuCategoria {
                 cadastrarCategoria(scanner);
                 break;
             case "2":
-                 editarCategoria(scanner);
+                editarCategoria(scanner);
                 break;
             case "3":
                 removerCategoria(scanner);
@@ -114,7 +115,7 @@ public class MenuCategoria {
             at.addRule();
             at.addRow("Código Categoria", "Nome Categoria");
             at.addRule();
-            at.addRow(categoria.get().getCodigo(),categoria.get().getNome());
+            at.addRow(categoria.get().getCodigo(), categoria.get().getNome()).setTextAlignment(TextAlignment.CENTER);
             at.addRule();
             System.out.println(at.render());
             menuCategoria(scanner);
@@ -126,18 +127,23 @@ public class MenuCategoria {
 
     private void listarCategorias(Scanner scanner) {
         try {
-            System.out.println("Listando categorias:");
-            List<Categoria> categorias = CategoriaDao.getInstance().listarTodos();
 
-            AsciiTable at = new AsciiTable();
-            at.addRule();
-            at.addRow("Código Categoria", "Nome Categoria");
-            at.addRule();
-            for (Categoria categoria : categorias) {
-                at.addRow(categoria.getCodigo(), categoria.getNome());
+            List<Categoria> categorias = CategoriaDao.getInstance().listarTodos();
+            if (categorias.isEmpty()) {
+                System.out.println("Nenhuma categoria cadastrada");
+            } else {
+                System.out.println("categorias cadastradas:");
+                AsciiTable at = new AsciiTable();
                 at.addRule();
+                at.addRow("Código Categoria", "Nome Categoria");
+                at.addRule();
+                for (Categoria categoria : categorias) {
+                    at.addRow(categoria.getCodigo(), categoria.getNome()).setTextAlignment(TextAlignment.CENTER);
+                    at.addRule();
+                }
+                System.out.println(at.render());
+                System.out.println("Total de categorias: " + categorias.size());
             }
-            System.out.println(at.render());
 
             menuCategoria(scanner);
         } catch (Exception e) {

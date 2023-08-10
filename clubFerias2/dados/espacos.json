@@ -1,11 +1,30 @@
 [
   {
-    "codigo": "9510S",
+    "codigo": "M5RV8",
+    "nome": "Spá",
+    "descricao": "Um spá",
+    "lotacaoMaxima": 30,
+    "categorias": [
+      "GI2MV"
+    ]
+  },
+  {
+    "codigo": "BFT2L",
     "nome": "Quadra de futebol",
     "descricao": "Uma quadra de futebol indoor",
-    "lotacaoMaxima": 40,
+    "lotacaoMaxima": 50,
     "categorias": [
-      "DFYU8"
+      "GUEXP"
+    ]
+  },
+  {
+    "codigo": "IDZ6F",
+    "nome": "Lago",
+    "descricao": "Um lago com pedalinhos",
+    "lotacaoMaxima": 15,
+    "categorias": [
+      "GI2MV",
+      "7OIPB"
     ]
   }
 ]

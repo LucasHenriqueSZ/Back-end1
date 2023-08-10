@@ -8,6 +8,7 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 public class EspacoDao {
@@ -57,6 +58,86 @@ public class EspacoDao {
         } catch (Exception e) {
             throw new IllegalArgumentException("Falha ao salvar espaco: " + e.getMessage());
         }
+    }
+
+    public Optional<Espaco> buscarEspaco(String nome) {
+        try {
+            if (nome == null || nome.isEmpty())
+                throw new IllegalArgumentException("Nome não pode ser nulo ou vazio!");
+
+            List<Espaco> espacos = carregarEspacos();
+            for (Espaco espaco : espacos) {
+                if (espaco.getNome().equalsIgnoreCase(nome)) {
+                    return Optional.of(espaco);
+                }
+            }
+            return Optional.empty();
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Falha ao buscar espaco: " + e.getMessage());
+        }
+    }
+
+    public Optional<Espaco> buscarEspacoCodigo(String codigo) {
+        try {
+            if (codigo == null || codigo.isEmpty())
+                throw new IllegalArgumentException("Nome não pode ser nulo ou vazio!");
+
+            List<Espaco> espacos = carregarEspacos();
+            for (Espaco espaco : espacos) {
+                if (espaco.getCodigo().equalsIgnoreCase(codigo)) {
+                    return Optional.of(espaco);
+                }
+            }
+            return Optional.empty();
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Falha ao buscar espaco: " + e.getMessage());
+        }
+    }
+
+    public void atualizar(Espaco espaco, String nome) {
+        try {
+            if (espaco == null)
+                throw new IllegalArgumentException("Espaco não pode ser nulo!");
+            if (!validarCategoriaEspaco(espaco))
+                throw new IllegalArgumentException("Categoria do espaco não existe!");
+
+            List<Espaco> espacos = carregarEspacos();
+            for (Espaco s : espacos) {
+                if (s.getNome().equalsIgnoreCase(nome)) {
+                    espaco.setCodigo(s.getCodigo());
+                    espacos.remove(s);
+                    espacos.add(espaco);
+                    salvarListaEspacos(espacos);
+                    return;
+                }
+            }
+            throw new IllegalArgumentException("Espaco não encontrado!");
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Falha ao atualizar espaco: " + e.getMessage());
+        }
+    }
+
+    public void deletar(String nome) {
+        try {
+            if (nome == null || nome.isEmpty())
+                throw new IllegalArgumentException("Nome não pode ser nulo ou vazio!");
+
+            List<Espaco> espacos = carregarEspacos();
+            for (Espaco espaco : espacos) {
+                if (espaco.getNome().equalsIgnoreCase(nome)) {
+                    espacos.remove(espaco);
+                    salvarListaEspacos(espacos);
+                    return;
+                }
+            }
+            throw new IllegalArgumentException("Espaco não encontrado!");
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Falha ao deletar espaco: " + e.getMessage());
+        }
+    }
+
+    public List<Espaco> listarTodos() {
+        return carregarEspacos();
     }
 
     private void salvarListaEspacos(List<Espaco> espacos) throws IOException {
