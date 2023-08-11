@@ -64,7 +64,6 @@ public class MenuSocio {
 
     private void atualizarSocio(Scanner scanner) {
         try {
-            scanner.nextLine();
             System.out.println("Digite o nome/documento do sócio que deseja atualizar:");
             java.lang.String nomeOuDocumento = scanner.nextLine();
 
@@ -142,7 +141,6 @@ public class MenuSocio {
 
     private void buscarSocio(Scanner scanner) {
         try {
-            scanner.nextLine();
             System.out.println("Digite o nome/Documento do sócio:");
             java.lang.String nomeOudocumento = scanner.nextLine();
 
@@ -177,10 +175,9 @@ public class MenuSocio {
 
         } while (!opcao.equals("1") && !opcao.equals("2"));
 
-
         if (opcao.equals("1")) {
             MenuPrincipal.getInstance().menuPricipal(scanner);
-        } else if (opcao.equals("2")) {
+        } else {
             buscarSocio(scanner);
         }
     }
@@ -189,7 +186,6 @@ public class MenuSocio {
         try {
             Socio socio = null;
 
-            scanner.nextLine();
             System.out.println("Digite o nome do sócio:");
             java.lang.String nome = scanner.nextLine();
             System.out.println("Escolha o tipo de documento:");

@@ -69,6 +69,7 @@ public class MenuEspaco {
             String nome = scanner.nextLine();
             System.out.println("Digite a capacidade do espaço:");
             int capacidade = Integer.parseInt(scanner.nextLine());
+
             System.out.println("Digite a descrição do espaço:");
             String descricao = scanner.nextLine();
             Set<String> categorias = new HashSet<>();

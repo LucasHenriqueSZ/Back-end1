@@ -1,1 +1,14 @@
-[{"codigo":"GUEXP","nome":"Esportes"},{"codigo":"7OIPB","nome":"Recreação"},{"codigo":"GI2MV","nome":"Relaxamento"}]
+[
+  {
+    "codigo": "GUEXP",
+    "nome": "Esportes"
+  },
+  {
+    "codigo": "7OIPB",
+    "nome": "Recreação"
+  },
+  {
+    "codigo": "GI2MV",
+    "nome": "Relaxamento"
+  }
+]

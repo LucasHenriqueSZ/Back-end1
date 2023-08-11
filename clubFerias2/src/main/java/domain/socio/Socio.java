@@ -7,15 +7,15 @@ import java.time.LocalDate;
 
 public class Socio {
 
-    private java.lang.String carteirinha;
+    private String carteirinha;
 
-    private java.lang.String nome;
+    private String nome;
 
     private LocalDate dataAssociacao;
 
     private Documento documento;
 
-    public Socio(java.lang.String name, Documento document) {
+    public Socio(String name, Documento document) {
         setNome(name);
         setDocumento(document);
         setDataAssociacao(LocalDate.now());
@@ -25,11 +25,11 @@ public class Socio {
     public Socio() {
     }
 
-    public java.lang.String getCarteirinha() {
+    public String getCarteirinha() {
         return carteirinha;
     }
 
-    public void setCarteirinha(java.lang.String carteirinha) {
+    public void setCarteirinha(String carteirinha) {
         this.carteirinha = carteirinha;
     }
 

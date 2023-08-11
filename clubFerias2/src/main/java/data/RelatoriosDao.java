@@ -188,7 +188,6 @@ public class RelatoriosDao {
             }
             linha++;
         }
-
     }
 
     private void escreveDadosNaPlanilha(XSSFWorkbook workbook, XSSFSheet sheet, HashMap<String, String> dados) {

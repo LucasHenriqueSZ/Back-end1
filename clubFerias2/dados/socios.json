@@ -55,17 +55,6 @@
     }
   },
   {
-    "carteirinha": "7E0FIG1A",
-    "nome": "Larissa Costa",
-    "dataAssociacao": "09/08/2023",
-    "documento": {
-      "CLASSNAME": "domain.socio.documentos.Cpf",
-      "DATA": {
-        "cpf": "79577529003"
-      }
-    }
-  },
-  {
     "carteirinha": "MI4B9MN0",
     "nome": "Lucas Henrique",
     "dataAssociacao": "09/08/2023",
@@ -73,6 +62,17 @@
       "CLASSNAME": "domain.socio.documentos.Cpf",
       "DATA": {
         "cpf": "75222204081"
+      }
+    }
+  },
+  {
+    "carteirinha": "7E0FIG1A",
+    "nome": "Larissa Costa",
+    "dataAssociacao": "09/08/2023",
+    "documento": {
+      "CLASSNAME": "domain.socio.documentos.Cpf",
+      "DATA": {
+        "cpf": "79577529003"
       }
     }
   }
