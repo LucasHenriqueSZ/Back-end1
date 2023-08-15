@@ -75,5 +75,16 @@
         "cpf": "79577529003"
       }
     }
+  },
+  {
+    "carteirinha": "56L6LJNH",
+    "nome": "Andre",
+    "dataAssociacao": "11/08/2023",
+    "documento": {
+      "CLASSNAME": "domain.socio.documentos.Rg",
+      "DATA": {
+        "rg": "401181789"
+      }
+    }
   }
 ]

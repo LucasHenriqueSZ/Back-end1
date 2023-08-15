@@ -1,4 +1,4 @@
-import presentation.MenuPrincipal;
+import application.MenuPrincipal;
 
 import java.util.Scanner;
 

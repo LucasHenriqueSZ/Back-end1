@@ -1,1 +1,59 @@
-[{"codigo":"BFT2L","nome":"Quadra de futebol","descricao":"Uma quadra de futebol indoor","lotacaoMaxima":50,"categorias":["GUEXP"]},{"codigo":"IDZ6F","nome":"Lago","descricao":"Um lago com pedalinhos","lotacaoMaxima":15,"categorias":["GI2MV","7OIPB"]},{"codigo":"9QEWR","nome":"Quadra de Vôlei de praia ","descricao":"Uma quadra de vôlei de praia","lotacaoMaxima":30,"categorias":["GUEXP"]},{"codigo":"M5RV8","nome":"Spa","descricao":"Um spá","lotacaoMaxima":30,"categorias":["GI2MV"]}]
+[
+  {
+    "codigo": "BFT2L",
+    "nome": "Quadra de futebol",
+    "descricao": "Uma quadra de futebol indoor",
+    "lotacaoMaxima": 50,
+    "categorias": [
+      "GUEXP"
+    ]
+  },
+  {
+    "codigo": "IDZ6F",
+    "nome": "Lago",
+    "descricao": "Um lago com pedalinhos",
+    "lotacaoMaxima": 15,
+    "categorias": [
+      "GI2MV",
+      "7OIPB"
+    ]
+  },
+  {
+    "codigo": "9QEWR",
+    "nome": "Quadra de Vôlei de praia ",
+    "descricao": "Uma quadra de vôlei de praia",
+    "lotacaoMaxima": 30,
+    "categorias": [
+      "GUEXP"
+    ]
+  },
+  {
+    "codigo": "M5RV8",
+    "nome": "Spa",
+    "descricao": "Um spá",
+    "lotacaoMaxima": 30,
+    "categorias": [
+      "GI2MV"
+    ]
+  },
+  {
+    "codigo": "VDFY6",
+    "nome": "piscina novo",
+    "descricao": "piscina novo ",
+    "lotacaoMaxima": 40,
+    "categorias": [
+      "GI2MV",
+      "GUEXP"
+    ]
+  },
+  {
+    "codigo": "AJBP9",
+    "nome": "quadra de tenis",
+    "descricao": "uma quadra de tenis",
+    "lotacaoMaxima": 10,
+    "categorias": [
+      "ZT4IK",
+      "GUEXP"
+    ]
+  }
+]
