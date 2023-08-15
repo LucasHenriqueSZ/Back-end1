@@ -1,12 +1,12 @@
-package infrastructure.entities;
+package application.dto;
 
-public class CategoriaEspaco {
+public class CategoriaEspacoDto {
 
     private String codigo;
 
     private String nome;
 
-    public CategoriaEspaco(String nome,String codigo) {
+    public CategoriaEspacoDto(String nome, String codigo) {
         setNome(nome);
         setCodigo(codigo);
     }

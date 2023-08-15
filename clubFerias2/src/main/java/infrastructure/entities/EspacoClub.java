@@ -1,7 +1,5 @@
 package infrastructure.entities;
 
-import domain.services.util.GeradorCodigo;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,12 +15,12 @@ public class EspacoClub {
 
     private Set<String> categorias = new HashSet<String>();
 
-    public EspacoClub(String nome, String descricao, int lotacaoMaxima, Set<String> categorias) {
+    public EspacoClub(String nome, String descricao, int lotacaoMaxima, Set<String> categorias, String codigo) {
         setNome(nome);
         setDescricao(descricao);
         setLotacaoMaxima(lotacaoMaxima);
         setCategorias(categorias);
-        setCodigo(GeradorCodigo.getCodigo());
+        setCodigo(codigo);
     }
 
     public String getNome() {

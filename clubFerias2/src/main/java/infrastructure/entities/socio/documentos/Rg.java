@@ -58,9 +58,4 @@ public class Rg implements Documento {
     public void setNumero(String numero) {
         this.numero = numero;
     }
-
-    @Override
-    public String toString() {
-        return "RG: " +  this.numero;
-    }
 }

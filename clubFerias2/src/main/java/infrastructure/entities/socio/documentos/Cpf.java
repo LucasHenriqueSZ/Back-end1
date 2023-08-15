@@ -29,9 +29,4 @@ public class Cpf implements Documento {
         }
         return true;
     }
-
-    @Override
-    public String toString() {
-        return "CPF: " +  this.numero;
-    }
 }

@@ -4,7 +4,7 @@
     "nome": "Maria Silva",
     "dataAssociacao": "09/08/2023",
     "documento": {
-      "CLASSNAME": "domain.socio.documentos.Cpf",
+      "CLASSNAME": "infrastructure.entities.socio.documentos.Cpf",
       "DATA": {
         "cpf": "68881519054"
       }
@@ -15,7 +15,7 @@
     "nome": "Joao Oliveira",
     "dataAssociacao": "09/08/2023",
     "documento": {
-      "CLASSNAME": "domain.socio.documentos.Rg",
+      "CLASSNAME": "infrastructure.entities.socio.documentos.Rg",
       "DATA": {
         "rg": "504099115"
       }
@@ -26,7 +26,7 @@
     "nome": "Ana Santos",
     "dataAssociacao": "09/08/2023",
     "documento": {
-      "CLASSNAME": "domain.socio.documentos.Cpf",
+      "CLASSNAME": "infrastructure.entities.socio.documentos.Cpf",
       "DATA": {
         "cpf": "11199875040"
       }
@@ -37,7 +37,7 @@
     "nome": "Pedro Souza",
     "dataAssociacao": "09/08/2023",
     "documento": {
-      "CLASSNAME": "domain.socio.documentos.Cpf",
+      "CLASSNAME": "infrastructure.entities.socio.documentos.Cpf",
       "DATA": {
         "cpf": "19083168026"
       }
@@ -48,7 +48,7 @@
     "nome": "Camila Rodrigues",
     "dataAssociacao": "09/08/2023",
     "documento": {
-      "CLASSNAME": "domain.socio.documentos.Rg",
+      "CLASSNAME": "infrastructure.entities.socio.documentos.Rg",
       "DATA": {
         "rg": "338804791"
       }
@@ -59,7 +59,7 @@
     "nome": "Lucas Henrique",
     "dataAssociacao": "09/08/2023",
     "documento": {
-      "CLASSNAME": "domain.socio.documentos.Cpf",
+      "CLASSNAME": "infrastructure.entities.socio.documentos.Cpf",
       "DATA": {
         "cpf": "75222204081"
       }
@@ -70,20 +70,20 @@
     "nome": "Larissa Costa",
     "dataAssociacao": "09/08/2023",
     "documento": {
-      "CLASSNAME": "domain.socio.documentos.Cpf",
+      "CLASSNAME": "infrastructure.entities.socio.documentos.Cpf",
       "DATA": {
         "cpf": "79577529003"
       }
     }
   },
   {
-    "carteirinha": "56L6LJNH",
-    "nome": "Andre",
-    "dataAssociacao": "11/08/2023",
+    "carteirinha": "6F18BA92",
+    "nome": "teste update dois",
+    "dataAssociacao": "15/08/2023",
     "documento": {
-      "CLASSNAME": "domain.socio.documentos.Rg",
+      "CLASSNAME": "infrastructure.entities.socio.documentos.Rg",
       "DATA": {
-        "rg": "401181789"
+        "rg": "186506168"
       }
     }
   }

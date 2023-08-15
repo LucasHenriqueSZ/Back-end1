@@ -1,7 +1,5 @@
 package infrastructure.entities;
 
-import domain.services.util.GeradorCodigo;
-
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -20,13 +18,13 @@ public class RegistroUtilizacao {
 
     private String codigoEspaco;
 
-    public RegistroUtilizacao(LocalDate dataUtilizacao, LocalTime horaEntrada, LocalTime horaSaida, String socio, String codigoEspaco) {
+    public RegistroUtilizacao(LocalDate dataUtilizacao, LocalTime horaEntrada, LocalTime horaSaida, String socio, String codigoEspaco, String codigo) {
         setDataUtilizacao(dataUtilizacao);
         setHoraEntrada(horaEntrada);
         setHoraSaida(horaSaida);
         setCarteirinhaSocio(socio);
         setCodigoEspaco(codigoEspaco);
-        setCodigoRegistro(GeradorCodigo.getCodigo());
+        setCodigoRegistro(codigo);
     }
 
     public RegistroUtilizacao() {
@@ -36,9 +34,9 @@ public class RegistroUtilizacao {
         return dataUtilizacao;
     }
 
-   public Duration getTempoDeUso() {
-       return Duration.between(horaEntrada, horaSaida);
-   }
+    public Duration getTempoDeUso() {
+        return Duration.between(horaEntrada, horaSaida);
+    }
 
     public void setDataUtilizacao(LocalDate dataUtilizacao) {
         if (dataUtilizacao == null)

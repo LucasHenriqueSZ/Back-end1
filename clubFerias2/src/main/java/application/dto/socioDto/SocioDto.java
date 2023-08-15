@@ -1,10 +1,10 @@
-package infrastructure.entities.socio;
+package application.dto.socioDto;
 
-import infrastructure.entities.socio.documentos.Documento;
+import application.dto.socioDto.documentosDto.DocumentoDto;
 
 import java.time.LocalDate;
 
-public class Socio {
+public class SocioDto {
 
     private String carteirinha;
 
@@ -12,16 +12,16 @@ public class Socio {
 
     private LocalDate dataAssociacao;
 
-    private Documento documento;
+    private DocumentoDto documento;
 
-    public Socio(String name, Documento document, LocalDate dataAssociacao, String carteirinha) {
+    public SocioDto(String name, DocumentoDto document, LocalDate dataAssociacao, String carteirinha) {
         setNome(name);
         setDocumento(document);
         setDataAssociacao(dataAssociacao);
         setCarteirinha(carteirinha);
     }
 
-    public Socio() {
+    public SocioDto() {
     }
 
     public String getCarteirinha() {
@@ -48,11 +48,11 @@ public class Socio {
         this.dataAssociacao = dataAssociacao;
     }
 
-    public Documento getDocumento() {
+    public DocumentoDto getDocumento() {
         return documento;
     }
 
-    public void setDocumento(Documento documento) {
+    public void setDocumento(DocumentoDto documento) {
         this.documento = documento;
     }
 }
