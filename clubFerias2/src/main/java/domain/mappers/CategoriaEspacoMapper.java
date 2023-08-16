@@ -25,8 +25,4 @@ public class CategoriaEspacoMapper {
     public static CategoriaEspacoDto mapToDto(CategoriaEspaco categoriaEspaco) {
         return new CategoriaEspacoDto(categoriaEspaco.getNome(), categoriaEspaco.getCodigo());
     }
-//
-//    public static List<CategoriaEspacoDto> mapToDtoList(List<CategoriaEspaco> categoriasEspaco) {
-//        return null;
-//    }
 }

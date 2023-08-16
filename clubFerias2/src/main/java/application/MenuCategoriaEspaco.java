@@ -39,10 +39,10 @@ public class MenuCategoriaEspaco {
                 cadastrarCategoria(scanner);
                 break;
             case "2":
-                //editarCategoria(scanner);
+                editarCategoria(scanner);
                 break;
             case "3":
-                //  removerCategoria(scanner);
+                removerCategoria(scanner);
                 break;
             case "4":
                 listarCategorias(scanner);
@@ -51,7 +51,7 @@ public class MenuCategoriaEspaco {
                  buscarCategoria(scanner);
                 break;
             case "6":
-                MenuEspaco.getInstance().menuEspaco(scanner);
+                MenuEspacoClub.getInstance().menuEspaco(scanner);
                 break;
             case "7":
                 MenuPrincipal.getInstance().menuPricipal(scanner);
@@ -59,6 +59,39 @@ public class MenuCategoriaEspaco {
             default:
                 System.out.println("Opção inválida");
                 menuCategoria(scanner);
+        }
+    }
+
+    private void editarCategoria(Scanner scanner) {
+        try {
+            System.out.println("Digite o nome da categoria que deseja atualizar:");
+            String nomeCategoria = scanner.nextLine();
+
+            System.out.println("Digite o novo nome da categoria:");
+            String novoNomeCategoria = scanner.nextLine();
+
+            CategoriaEspacoDto categoriaAtualizada = new CategoriaEspacoDto(novoNomeCategoria,null);
+
+            CategoriaEspacoService.getInstance().editarCategoria(nomeCategoria, categoriaAtualizada);
+            System.out.println("Categoria editada com sucesso");
+            menuCategoria(scanner);
+        } catch (Exception e) {
+            System.out.println("Falha ao editar categoria: " + e.getMessage());
+            menuCategoria(scanner);
+        }
+    }
+
+    private void removerCategoria(Scanner scanner) {
+        try {
+            System.out.println("Digite o nome da categoria que deseja remover:");
+            String nomeCategoria = scanner.nextLine();
+
+            CategoriaEspacoService.getInstance().removerCategoria(nomeCategoria);
+            System.out.println("Categoria removida com sucesso");
+            menuCategoria(scanner);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            menuCategoria(scanner);
         }
     }
 
@@ -78,7 +111,7 @@ public class MenuCategoriaEspaco {
             System.out.println(at.render());
             menuCategoria(scanner);
         } catch (Exception e) {
-            System.out.println("Falha ao buscar categoria: " + e.getMessage());
+            System.out.println(e.getMessage());
             menuCategoria(scanner);
         }
     }
@@ -101,7 +134,7 @@ public class MenuCategoriaEspaco {
 
             menuCategoria(scanner);
         } catch (Exception e) {
-            System.out.println("Falha ao listar categorias: " + e.getMessage());
+            System.out.println(e.getMessage());
             menuCategoria(scanner);
         }
     }
@@ -118,115 +151,8 @@ public class MenuCategoriaEspaco {
 
             menuCategoria(scanner);
         } catch (Exception e) {
-            System.out.println("Falha ao cadastrar categoria: " + e.getMessage());
+            System.out.println(e.getMessage());
             menuCategoria(scanner);
         }
     }
-
-//
-//    private void editarCategoria(Scanner scanner) {
-//        try {
-//            System.out.println("Digite o nome da categoria:");
-//            String nomeCategoria = scanner.nextLine();
-//
-//            System.out.println("Digite o novo nome da categoria:");
-//            String novoNomeCategoria = scanner.nextLine();
-//
-//            CategoriaEspaco categoriaEspaco = new CategoriaEspaco(novoNomeCategoria);
-//
-//            CategoriaEspacoDao.getInstance().atualizar(categoriaEspaco, nomeCategoria);
-//            System.out.println("Categoria editada com sucesso");
-//            menuCategoria(scanner);
-//        } catch (Exception e) {
-//            System.out.println("Falha ao editar categoria: " + e.getMessage());
-//            menuCategoria(scanner);
-//        }
-//    }
-//
-//    private void removerCategoria(Scanner scanner) {
-//        try {
-//            System.out.println("Digite o nome da categoria:");
-//            String nomeCategoria = scanner.nextLine();
-//
-//            Optional<CategoriaEspaco> categoria = CategoriaEspacoDao.getInstance().buscarCategoria(nomeCategoria);
-//            if (!categoria.isPresent()) {
-//                throw new IllegalArgumentException("Categoria não encontrada");
-//            }
-//
-//            CategoriaEspacoDao.getInstance().deletar(categoria.get().getNome());
-//            System.out.println("Categoria removida com sucesso");
-//            menuCategoria(scanner);
-//        } catch (Exception e) {
-//            System.out.println("Falha ao remover categoria: " + e.getMessage());
-//            menuCategoria(scanner);
-//        }
-//    }
-//
-//    private void buscarCategoria(Scanner scanner) {
-//        try {
-//            System.out.println("Digite o nome da categoria:");
-//            String nomeCategoria = scanner.nextLine();
-//
-//            Optional<CategoriaEspaco> categoria = CategoriaEspacoDao.getInstance().buscarCategoria(nomeCategoria);
-//            if (!categoria.isPresent()) {
-//                throw new IllegalArgumentException("Categoria não encontrada");
-//            }
-//
-//            AsciiTable at = new AsciiTable();
-//            at.addRule();
-//            at.addRow("Código Categoria", "Nome Categoria");
-//            at.addRule();
-//            at.addRow(categoria.get().getCodigo(), categoria.get().getNome()).setTextAlignment(TextAlignment.CENTER);
-//            at.addRule();
-//            System.out.println(at.render());
-//            menuCategoria(scanner);
-//        } catch (Exception e) {
-//            System.out.println("Falha ao buscar categoria: " + e.getMessage());
-//            menuCategoria(scanner);
-//        }
-//    }
-//
-//    private void listarCategorias(Scanner scanner) {
-//        try {
-//
-//            List<CategoriaEspaco> categoriaEspacos = CategoriaEspacoDao.getInstance().listarTodos();
-//            if (categoriaEspacos.isEmpty()) {
-//                System.out.println("Nenhuma categoria cadastrada");
-//            } else {
-//                System.out.println("categorias cadastradas:");
-//                AsciiTable at = new AsciiTable();
-//                at.addRule();
-//                at.addRow("Código Categoria", "Nome Categoria");
-//                at.addRule();
-//                for (CategoriaEspaco categoriaEspaco : categoriaEspacos) {
-//                    at.addRow(categoriaEspaco.getCodigo(), categoriaEspaco.getNome()).setTextAlignment(TextAlignment.CENTER);
-//                    at.addRule();
-//                }
-//                System.out.println(at.render());
-//                System.out.println("Total de categorias: " + categoriaEspacos.size());
-//            }
-//
-//            menuCategoria(scanner);
-//        } catch (Exception e) {
-//            System.out.println("Falha ao listar categorias: " + e.getMessage());
-//            menuCategoria(scanner);
-//        }
-//    }
-//
-//    private void cadastrarCategoria(Scanner scanner) {
-//        try {
-//            System.out.println("Digite o nome da categoria:");
-//            String nomeCategoria = scanner.nextLine();
-//
-//            CategoriaEspaco categoriaEspaco = new CategoriaEspaco(nomeCategoria);
-//
-//            CategoriaEspacoDao.getInstance().salvar(categoriaEspaco);
-//            System.out.println("Categoria cadastrada com sucesso");
-//
-//            menuCategoria(scanner);
-//        } catch (Exception e) {
-//            System.out.println("Falha ao cadastrar categoria: " + e.getMessage());
-//            menuCategoria(scanner);
-//        }
-//    }
 }

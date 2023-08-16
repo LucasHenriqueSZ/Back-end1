@@ -28,6 +28,7 @@ public class SocioService {
 
     public Optional<SocioDto> buscar(String nomeOudocumento) {
         try {
+            nomeOudocumento = tratarEspacamentoNome(nomeOudocumento);
             verificarNomeOuDocumento(nomeOudocumento);
 
             Optional<Socio> socio = SocioDao.getInstance().buscarPorNomeOuDocumento(nomeOudocumento);
@@ -46,6 +47,10 @@ public class SocioService {
         try {
             List<Socio> socios = SocioDao.getInstance().buscarTodos();
 
+            if (socios.isEmpty()) {
+                throw new IllegalArgumentException(ExceptionsSocioMessages.NENHUM_SOCIO_CADASTRADO.getMensagem());
+            }
+
             return SocioMapper.mapToDtoList(socios);
         } catch (Exception e) {
             throw new IllegalArgumentException(e.getMessage());
@@ -54,6 +59,8 @@ public class SocioService {
 
     public void remover(String nomeOudocumento) {
         try {
+            // falta verificar se nenhum registro de utilização esta usando
+            nomeOudocumento = tratarEspacamentoNome(nomeOudocumento);
             verificarNomeOuDocumento(nomeOudocumento);
 
             Socio socio = SocioDao.getInstance().buscarPorNomeOuDocumento(nomeOudocumento).orElseThrow(
@@ -67,6 +74,7 @@ public class SocioService {
 
     public void cadastrarSocio(SocioDto socioDto) {
         try {
+            socioDto.setNome(tratarEspacamentoNome(socioDto.getNome()));
             Socio socio = SocioMapper.mapToEntity(socioDto);
             socio.setCarteirinha(GeradorCodigoCarteirinha.getCardCode());
             socio.setDataAssociacao(LocalDate.now());
@@ -83,6 +91,7 @@ public class SocioService {
 
     public void atualizar(SocioDto socioDto, String nomeOudocumento) {
         try {
+            socioDto.setNome(tratarEspacamentoNome(socioDto.getNome()));
             verificarNomeOuDocumento(nomeOudocumento);
 
             Socio socio = SocioDao.getInstance().buscarPorNomeOuDocumento(nomeOudocumento).orElseThrow(
@@ -144,7 +153,6 @@ public class SocioService {
             throw new IllegalArgumentException(ExceptionsSocioMessages.DOCUMENTO_INVALIDO.getMensagem());
     }
 
-
     private void verificarNomeOuDocumento(String nomeOudocumento) {
         if (nomeOudocumento == null || nomeOudocumento.isEmpty()) {
             throw new IllegalArgumentException(ExceptionsSocioMessages.NOME_OU_DOCUMENTO_NULO_OU_VAZIO.getMensagem());
@@ -158,5 +166,13 @@ public class SocioService {
         if (!nomeOudocumento.matches("[a-zA-Z0-9\\s]*")) {
             throw new IllegalArgumentException(ExceptionsSocioMessages.NOME_OU_DOCUMENTO_DEVE_CONTER_APENAS_LETRAS_E_NUMEROS.getMensagem());
         }
+    }
+
+    private String tratarEspacamentoNome(String nome) {
+        nome = nome.replaceAll("\\s+", " ");
+        if (nome.endsWith(" ")) {
+            nome = nome.substring(0, nome.length() - 1);
+        }
+        return nome;
     }
 }

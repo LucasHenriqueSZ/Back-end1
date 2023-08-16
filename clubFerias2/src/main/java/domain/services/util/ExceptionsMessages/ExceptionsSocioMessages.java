@@ -17,7 +17,8 @@ public enum ExceptionsSocioMessages {
     DOCUMENTO_NULO("Documento não pode ser nulo"),
     DOCUMENTO_INVALIDO("Documento inválido"),
     SOCIO_JA_CADASTRADO("Sócio já cadastrado"),
-    DOCUMENTO_DUPLICADO("Documento duplicado");
+    DOCUMENTO_DUPLICADO("Documento duplicado"),
+    NENHUM_SOCIO_CADASTRADO("Nenhum sócio cadastrado");
 
     private final String mensagem;
 

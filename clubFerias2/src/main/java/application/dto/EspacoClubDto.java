@@ -13,17 +13,17 @@ public class EspacoClubDto {
 
     private int lotacaoMaxima;
 
-    private Set<String> nomesCategorias = new HashSet<String>();
+    private Set<CategoriaEspacoDto> nomesCategorias = new HashSet<CategoriaEspacoDto>();
 
-    public EspacoClubDto(String nome, String descricao, int lotacaoMaxima, Set<String> categorias, String codigo) {
+    public EspacoClubDto(String nome, String descricao, int lotacaoMaxima, Set<CategoriaEspacoDto> categorias, String codigo) {
         setNome(nome);
         setDescricao(descricao);
         setLotacaoMaxima(lotacaoMaxima);
-        setNomesCategorias(categorias);
+        setCategorias(categorias);
         setCodigo(codigo);
     }
 
-    public void addCategoria(String categoria) {
+    public void addCategoria(CategoriaEspacoDto categoria) {
         this.nomesCategorias.add(categoria);
     }
 
@@ -51,11 +51,11 @@ public class EspacoClubDto {
         this.lotacaoMaxima = lotacaoMaxima;
     }
 
-    public Set<String> getNomesCategorias() {
+    public Set<CategoriaEspacoDto> getCategorias() {
         return nomesCategorias;
     }
 
-    public void setNomesCategorias(Set<String> nomesCategorias) {
+    public void setCategorias(Set<CategoriaEspacoDto> nomesCategorias) {
         this.nomesCategorias = nomesCategorias;
     }
 

@@ -1,5 +1,7 @@
 package application.dto;
 
+import application.dto.socioDto.SocioDto;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -13,16 +15,16 @@ public class RegistroUtilizacaoDto {
 
     private LocalTime horaSaida;
 
-    private String nomeSocio;
+    private SocioDto socio;
 
-    private String nomeEspacoClub;
+    private EspacoClubDto espacoClub;
 
-    public RegistroUtilizacaoDto(LocalDate dataUtilizacao, LocalTime horaEntrada, LocalTime horaSaida, String socio, String codigoEspaco, String codigoRegistro) {
+    public RegistroUtilizacaoDto(LocalDate dataUtilizacao, LocalTime horaEntrada, LocalTime horaSaida, SocioDto socio, EspacoClubDto espaco, String codigoRegistro) {
         setDataUtilizacao(dataUtilizacao);
         setHoraEntrada(horaEntrada);
         setHoraSaida(horaSaida);
-        setNomeSocio(socio);
-        setNomeEspacoClub(codigoEspaco);
+        setSocio(socio);
+        setEspacoClub(espaco);
         setCodigoRegistro(codigoRegistro);
     }
 
@@ -53,20 +55,20 @@ public class RegistroUtilizacaoDto {
         this.horaSaida = horaSaida;
     }
 
-    public String getNomeSocio() {
-        return nomeSocio;
+    public SocioDto getSocio() {
+        return socio;
     }
 
-    public void setNomeSocio(String nomeSocio) {
-        this.nomeSocio = nomeSocio;
+    public void setSocio(SocioDto socio) {
+        this.socio = socio;
     }
 
-    public String getNomeEspacoClub() {
-        return nomeEspacoClub;
+    public EspacoClubDto getEspacoClub() {
+        return espacoClub;
     }
 
-    public void setNomeEspacoClub(String nomeEspacoClub) {
-        this.nomeEspacoClub = nomeEspacoClub;
+    public void setEspacoClub(EspacoClubDto espacoClub) {
+        this.espacoClub = espacoClub;
     }
 
     public String getCodigoRegistro() {

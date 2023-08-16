@@ -1,4 +1,16 @@
 package domain.services;
 
-public class RegistroUtilizacaoService  { //para apagar um socio ou uma categoria deve verificar se nenhum registrode utilização utiliza
+public class RegistroUtilizacaoService {
+    private static RegistroUtilizacaoService instance;
+
+    private RegistroUtilizacaoService() {
+    }
+
+    public static RegistroUtilizacaoService getInstance() {
+        if (instance == null) {
+            instance = new RegistroUtilizacaoService();
+        }
+        return instance;
+    }
+
 }

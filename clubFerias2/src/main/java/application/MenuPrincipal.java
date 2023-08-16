@@ -32,7 +32,7 @@ public class MenuPrincipal {
                 MenuSocio.getInstance().menuSocio(scanner);
                 break;
             case "2":
-                MenuEspaco.getInstance().menuEspaco(scanner);
+                MenuEspacoClub.getInstance().menuEspaco(scanner);
                 break;
             case "3":
                // MenuRegistrosUtilizacao.getInstance().menuRegistroUtilizacao(scanner);

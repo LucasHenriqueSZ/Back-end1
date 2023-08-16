@@ -23,18 +23,15 @@ public class EspacoClub {
         setCodigo(codigo);
     }
 
+    public void addCategoria(String categoria) {
+        this.categorias.add(categoria);
+    }
+
     public String getNome() {
         return nome;
     }
 
     public void setNome(String nome) {
-        if (nome == null || nome.trim().isEmpty())
-            throw new IllegalArgumentException("Nome inválido!");
-        if (nome.length() < 3)
-            throw new IllegalArgumentException("Nome deve conter no mínimo 3 caracteres!");
-        if (nome.length() > 50)
-            throw new IllegalArgumentException("Nome deve conter no máximo 50 caracteres!");
-
         this.nome = nome.trim();
     }
 
@@ -43,13 +40,6 @@ public class EspacoClub {
     }
 
     public void setDescricao(String descricao) {
-        if (descricao == null || descricao.trim().isEmpty())
-            throw new IllegalArgumentException("Nome inválido!");
-        if (descricao.length() < 3)
-            throw new IllegalArgumentException("Nome deve conter no mínimo 3 caracteres!");
-        if (descricao.length() > 50)
-            throw new IllegalArgumentException("Nome deve conter no máximo 50 caracteres!");
-
         this.descricao = descricao;
     }
 
@@ -58,9 +48,6 @@ public class EspacoClub {
     }
 
     public void setLotacaoMaxima(int lotacaoMaxima) {
-        if( lotacaoMaxima <0)
-            throw new IllegalArgumentException("A lotação maxima nao deve ser negativa");
-
         this.lotacaoMaxima = lotacaoMaxima;
     }
 
@@ -69,9 +56,6 @@ public class EspacoClub {
     }
 
     public void setCategorias(Set<String> categorias) {
-        if(categorias.isEmpty() || categorias == null)
-            throw new IllegalArgumentException("O espaço deve conter no mínimo 1 categoria");
-
         this.categorias = categorias;
     }
 
