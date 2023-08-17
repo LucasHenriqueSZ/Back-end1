@@ -5,6 +5,7 @@ import domain.mappers.EspacoClubMapper;
 import domain.services.util.ExceptionsMessages.ExceptionsEspacoClubMessages;
 import domain.services.util.GeradorCodigo;
 import infrastructure.EspacoClubDao;
+import infrastructure.RegistroUtilizacaoDao;
 import infrastructure.entities.EspacoClub;
 
 import java.io.IOException;
@@ -79,12 +80,13 @@ public class EspacoClubService {
 
     public void removerEspaco(String nome) {
         try {
-            //falta verificar se nenhum registro de utilização esta utilizando
             nome = tratarEspacamentoNome(nome);
             verificarNomeEspaco(nome);
 
             EspacoClub espaco = EspacoClubDao.getInstance().buscarPorNome(nome).orElseThrow(
                     () -> new IllegalArgumentException(ExceptionsEspacoClubMessages.ESPACO_NAO_ENCONTRADO.getMensagem()));
+
+            verificarEspacoEmRegistroUtilizacao(espaco.getCodigo());
 
             EspacoClubDao.getInstance().deletar(espaco);
         } catch (Exception e) {
@@ -99,6 +101,20 @@ public class EspacoClubService {
                 throw new IllegalArgumentException(ExceptionsEspacoClubMessages.NENHUM_ESPACO_CADASTRADO.getMensagem());
 
             return EspacoClubMapper.mapToDtoList(espacos);
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e.getMessage());
+        }
+    }
+
+    public Optional<EspacoClubDto> buscarEspacoPorCodigo(String codigoEspaco) {
+        try {
+            Optional<EspacoClub> espacoClub = EspacoClubDao.getInstance().buscarPorCodigo(codigoEspaco);
+
+            if (!espacoClub.isPresent()) {
+                throw new IllegalArgumentException(ExceptionsEspacoClubMessages.ESPACO_NAO_ENCONTRADO.getMensagem());
+            }
+
+            return Optional.of(EspacoClubMapper.mapToDto(espacoClub.get()));
         } catch (Exception e) {
             throw new IllegalArgumentException(e.getMessage());
         }
@@ -135,6 +151,13 @@ public class EspacoClubService {
             throw new IllegalArgumentException(ExceptionsEspacoClubMessages.NOME_MINIMO.getMensagem());
         if (nome.length() > 50)
             throw new IllegalArgumentException(ExceptionsEspacoClubMessages.NOME_MAXIMO.getMensagem());
+    }
+
+    private void verificarEspacoEmRegistroUtilizacao(String codigo) throws IOException {
+        RegistroUtilizacaoDao.getInstance().buscarTodos().forEach(registro -> {
+            if (registro.getCodigoEspaco().equalsIgnoreCase(codigo))
+                throw new IllegalArgumentException(ExceptionsEspacoClubMessages.ESPACO_EM_REGISTRO_UTILIZACAO.getMensagem());
+        });
     }
 
     private String tratarEspacamentoNome(String nome) {

@@ -35,7 +35,7 @@ public class MenuPrincipal {
                 MenuEspacoClub.getInstance().menuEspaco(scanner);
                 break;
             case "3":
-               // MenuRegistrosUtilizacao.getInstance().menuRegistroUtilizacao(scanner);
+                MenuRegistrosUtilizacao.getInstance().menuRegistroUtilizacao(scanner);
                 break;
             case "4":
                 //MenuRelatorios.getInstance().menuRelatorios(scanner);

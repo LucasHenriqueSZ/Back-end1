@@ -23,6 +23,10 @@ public class EspacoClubDto {
         setCodigo(codigo);
     }
 
+    public EspacoClubDto(String nome) {
+        setNome(nome);
+    }
+
     public void addCategoria(CategoriaEspacoDto categoria) {
         this.nomesCategorias.add(categoria);
     }

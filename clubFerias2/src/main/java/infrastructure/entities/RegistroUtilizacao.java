@@ -39,8 +39,6 @@ public class RegistroUtilizacao {
     }
 
     public void setDataUtilizacao(LocalDate dataUtilizacao) {
-        if (dataUtilizacao == null)
-            throw new IllegalArgumentException("Data de utilização não pode ser nula!");
         this.dataUtilizacao = dataUtilizacao;
     }
 
@@ -49,8 +47,6 @@ public class RegistroUtilizacao {
     }
 
     public void setHoraEntrada(LocalTime horaEntrada) {
-        if (horaEntrada == null)
-            throw new IllegalArgumentException("Hora de entrada não pode ser nula!");
         this.horaEntrada = horaEntrada;
     }
 
@@ -59,8 +55,6 @@ public class RegistroUtilizacao {
     }
 
     public void setHoraSaida(LocalTime horaSaida) {
-        if (horaSaida == null)
-            throw new IllegalArgumentException("Hora de saída não pode ser nula!");
         this.horaSaida = horaSaida;
     }
 
@@ -69,10 +63,6 @@ public class RegistroUtilizacao {
     }
 
     public void setCarteirinhaSocio(String carteirinhaSocio) {
-        if (carteirinhaSocio == null || carteirinhaSocio.isEmpty())
-            throw new IllegalArgumentException("Carteirinha do sócio não pode ser nula!");
-        if (carteirinhaSocio.length() != 8)
-            throw new IllegalArgumentException("Carteirinha do sócio deve conter 8 caracteres!");
         this.carteirinhaSocio = carteirinhaSocio;
     }
 
@@ -81,10 +71,6 @@ public class RegistroUtilizacao {
     }
 
     public void setCodigoEspaco(String codigoEspaco) {
-        if (codigoEspaco == null || codigoEspaco.isEmpty())
-            throw new IllegalArgumentException("Código do espaço não pode ser nulo!");
-        if (codigoEspaco.length() != 5)
-            throw new IllegalArgumentException("Código do espaço deve conter 5 caracteres!");
         this.codigoEspaco = codigoEspaco;
     }
 

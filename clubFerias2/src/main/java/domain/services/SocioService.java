@@ -4,6 +4,7 @@ import application.dto.socioDto.SocioDto;
 import domain.mappers.SocioMapper;
 import domain.services.util.ExceptionsMessages.ExceptionsSocioMessages;
 import domain.services.util.GeradorCodigoCarteirinha;
+import infrastructure.RegistroUtilizacaoDao;
 import infrastructure.SocioDao;
 import infrastructure.entities.socio.Socio;
 
@@ -33,7 +34,7 @@ public class SocioService {
 
             Optional<Socio> socio = SocioDao.getInstance().buscarPorNomeOuDocumento(nomeOudocumento);
 
-            if (!socio.isPresent()) {
+            if (socio.isEmpty()) {
                 throw new IllegalArgumentException(ExceptionsSocioMessages.SOCIO_NAO_ENCONTRADO.getMensagem());
             }
 
@@ -65,6 +66,8 @@ public class SocioService {
 
             Socio socio = SocioDao.getInstance().buscarPorNomeOuDocumento(nomeOudocumento).orElseThrow(
                     () -> new IllegalArgumentException(ExceptionsSocioMessages.SOCIO_NAO_ENCONTRADO.getMensagem()));
+
+            verificarSocioEmRegistroUtilizacao(socio.getCarteirinha());
 
             SocioDao.getInstance().deletar(socio);
         } catch (Exception e) {
@@ -106,6 +109,17 @@ public class SocioService {
             verificarSocioJaCadastrado(socioAtualizado);
 
             SocioDao.getInstance().atualizar(socioAtualizado);
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e.getMessage());
+        }
+    }
+
+    public Optional<SocioDto> buscarPorCarteirinha(String carteirinhaSocio) {
+        try {
+            Socio socio = SocioDao.getInstance().buscarPorCodigo(carteirinhaSocio).orElseThrow(
+                    () -> new IllegalArgumentException(ExceptionsSocioMessages.SOCIO_NAO_ENCONTRADO.getMensagem()));
+
+            return Optional.of(SocioMapper.mapToDto(socio));
         } catch (Exception e) {
             throw new IllegalArgumentException(e.getMessage());
         }
@@ -166,6 +180,13 @@ public class SocioService {
         if (!nomeOudocumento.matches("[a-zA-Z0-9\\s]*")) {
             throw new IllegalArgumentException(ExceptionsSocioMessages.NOME_OU_DOCUMENTO_DEVE_CONTER_APENAS_LETRAS_E_NUMEROS.getMensagem());
         }
+    }
+
+    private void verificarSocioEmRegistroUtilizacao(String carteirinha) throws IOException {
+        RegistroUtilizacaoDao.getInstance().buscarTodos().forEach(registro -> {
+            if (registro.getCodigoEspaco().equalsIgnoreCase(carteirinha))
+                throw new IllegalArgumentException(ExceptionsSocioMessages.SOCIO_EM_REGISTRO_UTILIZACAO.getMensagem());
+        });
     }
 
     private String tratarEspacamentoNome(String nome) {

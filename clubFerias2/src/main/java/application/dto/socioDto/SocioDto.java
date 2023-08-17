@@ -21,6 +21,10 @@ public class SocioDto {
         setCarteirinha(carteirinha);
     }
 
+    public SocioDto(String name) {
+        setNome(name);
+    }
+
     public SocioDto() {
     }
 

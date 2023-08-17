@@ -13,7 +13,8 @@ public enum ExceptionsEspacoClubMessages {
     CATEGORIA_INVALIDA("Categoria inválida"),
     ESPACO_JA_CADASTRADO("Espaço já cadastrado"),
     ESPACO_NAO_ENCONTRADO("Espaço não encontrado"),
-    NENHUM_ESPACO_CADASTRADO("Nenhum espaço cadastrado");
+    NENHUM_ESPACO_CADASTRADO("Nenhum espaço cadastrado"),
+    ESPACO_EM_REGISTRO_UTILIZACAO("Espaço está cadastrado em um registro de utilização");
 
     private final String mensagem;
 
