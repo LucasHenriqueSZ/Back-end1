@@ -28,13 +28,15 @@ public class RegistroUtilizacaoService {
             codigo = tratarEspacamentoString(codigo);
             verificarCodigo(codigo);
 
-            Optional<RegistroUtilizacao> socio = RegistroUtilizacaoDao.getInstance().buscarPorCodigo(codigo);
+            Optional<RegistroUtilizacao> registro = RegistroUtilizacaoDao.getInstance().buscarPorCodigo(codigo);
 
-            if (socio.isEmpty()) {
+            if (registro.isEmpty()) {
                 throw new IllegalArgumentException(ExceptionsRegistroUtilizacaoMessages.REGISTRO_UTILIZACAO_NAO_ENCONTRADO.getMensagem());
+            } else {
+                registro.get();
             }
 
-            return Optional.of(RegistroUtilizacaoMapper.mapToDto(socio.get()));
+            return Optional.of(RegistroUtilizacaoMapper.mapToDto(registro.get()));
         } catch (Exception e) {
             throw new IllegalArgumentException(e.getMessage());
         }

@@ -117,14 +117,14 @@ public class RelatoriosService {
         font.setColor(IndexedColors.WHITE.getIndex());
         style.setFont(font);
         style.setFillForegroundColor(IndexedColors.GREEN.getIndex());
-        style.setFillPattern(Short.valueOf("1"));
+        style.setFillPattern(Short.parseShort("1"));
         return style;
     }
 
     private CellStyle createDataStyle(XSSFWorkbook workbook, short bgColor) {
         CellStyle style = workbook.createCellStyle();
         style.setFillForegroundColor(bgColor);
-        style.setFillPattern(Short.valueOf("1"));
+        style.setFillPattern(Short.parseShort("1"));
         return style;
     }
 

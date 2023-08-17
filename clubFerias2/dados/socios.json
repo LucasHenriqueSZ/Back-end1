@@ -77,13 +77,24 @@
     }
   },
   {
-    "carteirinha": "6F18BA92",
-    "nome": "teste update dois",
-    "dataAssociacao": "15/08/2023",
+    "carteirinha": "AIDN2CD6",
+    "nome": "socio teste",
+    "dataAssociacao": "17/08/2023",
+    "documento": {
+      "CLASSNAME": "infrastructure.entities.socio.documentos.Cpf",
+      "DATA": {
+        "cpf": "5684784484"
+      }
+    }
+  },
+  {
+    "carteirinha": "8K5ELB9N",
+    "nome": "socio rg teste",
+    "dataAssociacao": "17/08/2023",
     "documento": {
       "CLASSNAME": "infrastructure.entities.socio.documentos.Rg",
       "DATA": {
-        "rg": "186506168"
+        "rg": "343824681"
       }
     }
   }

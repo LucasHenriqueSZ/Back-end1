@@ -1,6 +1,5 @@
 package infrastructure.entities.socio.documentos;
 
-import br.com.caelum.stella.validation.CPFValidator;
 import com.google.gson.annotations.SerializedName;
 
 public class Cpf implements Documento {
@@ -20,13 +19,4 @@ public class Cpf implements Documento {
         this.numero = numero;
     }
 
-    @Override
-    public boolean validarDocumento() {
-        this.numero = this.numero.trim().replace("[^\\d]", "");
-        CPFValidator cpfValidator = new CPFValidator();
-        if (!cpfValidator.invalidMessagesFor(this.numero).isEmpty()) {
-            return false;
-        }
-        return true;
-    }
 }

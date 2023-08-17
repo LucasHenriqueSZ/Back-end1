@@ -47,7 +47,7 @@ public class EspacoClubService {
 
             Optional<EspacoClub> espacoClub = EspacoClubDao.getInstance().buscarPorNome(nome);
 
-            if (!espacoClub.isPresent()) {
+            if (espacoClub.isEmpty()) {
                 throw new IllegalArgumentException(ExceptionsEspacoClubMessages.ESPACO_NAO_ENCONTRADO.getMensagem());
             }
 
@@ -109,7 +109,7 @@ public class EspacoClubService {
         try {
             Optional<EspacoClub> espacoClub = EspacoClubDao.getInstance().buscarPorCodigo(codigoEspaco);
 
-            if (!espacoClub.isPresent()) {
+            if (espacoClub.isEmpty()) {
                 throw new IllegalArgumentException(ExceptionsEspacoClubMessages.ESPACO_NAO_ENCONTRADO.getMensagem());
             }
 

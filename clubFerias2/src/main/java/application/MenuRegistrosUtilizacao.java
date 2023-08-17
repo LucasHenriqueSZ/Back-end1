@@ -17,9 +17,9 @@ public class MenuRegistrosUtilizacao {
 
     private static MenuRegistrosUtilizacao instance;
 
-    private DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private final DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    private DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm:ss");
+    private final DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm:ss");
 
     private MenuRegistrosUtilizacao() {
     }
@@ -39,33 +39,22 @@ public class MenuRegistrosUtilizacao {
         System.out.println("4 - Listar registros de utilização");
         System.out.println("5 - Consultar registro de utilização");
         System.out.println("6 - Voltar ao menu principal");
+        System.out.println("Digite o número da opção desejada:");
 
         int opcao = scanner.nextInt();
         scanner.nextLine();
 
         switch (opcao) {
-            case 1:
-                adicionarRegistroUtilizacao(scanner);
-                break;
-            case 2:
-                editarRegistroUtilizacao(scanner);
-                break;
-            case 3:
-                removerRegistroUtilizacao(scanner);
-                break;
-            case 4:
-                listarRegistrosUtilizacao(scanner);
-                break;
-            case 5:
-                consultarRegistroUtilizacao(scanner);
-                break;
-            case 6:
-                MenuPrincipal.getInstance().menuPricipal(scanner);
-                break;
-            default:
+            case 1 -> adicionarRegistroUtilizacao(scanner);
+            case 2 -> editarRegistroUtilizacao(scanner);
+            case 3 -> removerRegistroUtilizacao(scanner);
+            case 4 -> listarRegistrosUtilizacao(scanner);
+            case 5 -> consultarRegistroUtilizacao(scanner);
+            case 6 -> MenuPrincipal.getInstance().menuPricipal(scanner);
+            default -> {
                 System.out.println("Opção inválida!");
                 menuRegistroUtilizacao(scanner);
-                break;
+            }
         }
     }
 

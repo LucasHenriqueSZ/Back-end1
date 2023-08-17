@@ -92,7 +92,7 @@ public class RegistroUtilizacaoDao implements DaoGenerico<RegistroUtilizacao> {
             registros = recuperadorRegistros.lerArquivo();
 
             return registros.stream()
-                    .filter(registro -> registro.getCodigoRegistro().equals(codigo))
+                    .filter(registro -> registro.getCodigoRegistro().equalsIgnoreCase(codigo))
                     .findFirst();
         } catch (IOException e) {
             throw new RuntimeException(e);

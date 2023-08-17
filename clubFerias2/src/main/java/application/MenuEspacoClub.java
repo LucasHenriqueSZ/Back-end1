@@ -38,30 +38,17 @@ public class MenuEspacoClub {
         String opcao = scanner.nextLine();
 
         switch (opcao) {
-            case "1":
-                cadastrarEspaco(scanner);
-                break;
-            case "2":
-                editarEspaco(scanner);
-                break;
-            case "3":
-                removerEspaco(scanner);
-                break;
-            case "4":
-                listarEspacos(scanner);
-                break;
-            case "5":
-                buscarEspaco(scanner);
-                break;
-            case "6":
-                MenuCategoriaEspaco.getInstance().menuCategoria(scanner);
-                break;
-            case "7":
-                MenuPrincipal.getInstance().menuPricipal(scanner);
-                break;
-            default:
+            case "1" -> cadastrarEspaco(scanner);
+            case "2" -> editarEspaco(scanner);
+            case "3" -> removerEspaco(scanner);
+            case "4" -> listarEspacos(scanner);
+            case "5" -> buscarEspaco(scanner);
+            case "6" -> MenuCategoriaEspaco.getInstance().menuCategoria(scanner);
+            case "7" -> MenuPrincipal.getInstance().menuPricipal(scanner);
+            default -> {
                 System.out.println("Opção inválida");
                 menuEspaco(scanner);
+            }
         }
     }
 
@@ -137,18 +124,18 @@ public class MenuEspacoClub {
 
             EspacoClubDto espacoClubDto = EspacoClubService.getInstance().buscarEspaco(nome).get();
 
-            System.out.println("Digite o novo nome do espaço:");
+            System.out.println("Digite o novo nome do espaço - nome atual: " + espacoClubDto.getNome());
             String novoNome = scanner.nextLine();
-            System.out.println("Digite a nova descrição do espaço:");
+            System.out.println("Digite a nova descrição do espaço - descrição atual: " + espacoClubDto.getDescricao());
             String novaDescricao = scanner.nextLine();
-            System.out.println("Digite a nova capacidade do espaço:");
+            System.out.println("Digite a nova capacidade do espaço - capacidade atual: " + espacoClubDto.getLotacaoMaxima());
             int novaCapacidade = Integer.parseInt(scanner.nextLine());
             while (novaCapacidade < 0) {
-                System.out.println("Capacidade inválida! Digite novamente:");
+                System.out.println("Capacidade inválida! Digite novamente - capacidade atual: " + espacoClubDto.getLotacaoMaxima());
                 novaCapacidade = Integer.parseInt(scanner.nextLine());
             }
 
-            System.out.println("categorias anteriormente cadastradas:");
+            System.out.println("categorias anteriormente cadastradas no espaço: ");
             AsciiTable tabela = new AsciiTable();
             tabela.addRule();
             tabela.addRow("Nome da categoria");

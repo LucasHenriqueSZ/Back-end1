@@ -54,5 +54,13 @@
     "horaSaida": "11::00::00",
     "carteirinhaSocio": "MI4B9MN0",
     "codigoEspaco": "VDFY6"
+  },
+  {
+    "codigoRegistro": "NJG5L",
+    "dataUtilizacao": "17/08/2023",
+    "horaEntrada": "10::40::00",
+    "horaSaida": "11::25::00",
+    "carteirinhaSocio": "MI4B9MN0",
+    "codigoEspaco": "IDZ6F"
   }
 ]

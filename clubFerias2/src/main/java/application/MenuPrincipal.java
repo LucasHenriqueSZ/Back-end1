@@ -28,24 +28,16 @@ public class MenuPrincipal {
         String opcao = scanner.nextLine();
 
         switch (opcao) {
-            case "1":
-                MenuSocio.getInstance().menuSocio(scanner);
-                break;
-            case "2":
-                MenuEspacoClub.getInstance().menuEspaco(scanner);
-                break;
-            case "3":
-                MenuRegistrosUtilizacao.getInstance().menuRegistroUtilizacao(scanner);
-                break;
-            case "4":
-                MenuRelatorios.getInstance().menuRelatorios(scanner);
-                break;
-            case "5":
-                System.out.println("Obrigado por utilizar o sistema de gerenciamento do club de ferias da NewGo");
-                break;
-            default:
+            case "1" -> MenuSocio.getInstance().menuSocio(scanner);
+            case "2" -> MenuEspacoClub.getInstance().menuEspaco(scanner);
+            case "3" -> MenuRegistrosUtilizacao.getInstance().menuRegistroUtilizacao(scanner);
+            case "4" -> MenuRelatorios.getInstance().menuRelatorios(scanner);
+            case "5" ->
+                    System.out.println("Obrigado por utilizar o sistema de gerenciamento do club de ferias da NewGo");
+            default -> {
                 System.out.println("Opção inválida");
                 menuPricipal(scanner);
+            }
         }
     }
 }

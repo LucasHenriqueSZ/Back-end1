@@ -1,6 +1,5 @@
 package application;
 
-
 import application.dto.socioDto.SocioDto;
 import application.dto.socioDto.documentosDto.CpfDto;
 import application.dto.socioDto.documentosDto.RgDto;
@@ -39,27 +38,16 @@ public class MenuSocio {
         java.lang.String opcao = scanner.nextLine();
 
         switch (opcao) {
-            case "1":
-                cadastrarSocio(scanner);
-                break;
-            case "2":
-                buscarSocio(scanner);
-                break;
-            case "3":
-                atualizarSocio(scanner);
-                break;
-            case "4":
-                removerSocio(scanner);
-                break;
-            case "5":
-                listarTodosSocios(scanner);
-                break;
-            case "6":
-                MenuPrincipal.getInstance().menuPricipal(scanner);
-                break;
-            default:
+            case "1" -> cadastrarSocio(scanner);
+            case "2" -> buscarSocio(scanner);
+            case "3" -> atualizarSocio(scanner);
+            case "4" -> removerSocio(scanner);
+            case "5" -> listarTodosSocios(scanner);
+            case "6" -> MenuPrincipal.getInstance().menuPricipal(scanner);
+            default -> {
                 System.out.println("Opção inválida");
                 menuSocio(scanner);
+            }
         }
     }
 
@@ -67,16 +55,16 @@ public class MenuSocio {
         try {
             List<SocioDto> socioDtoList = SocioService.getInstance().listarTodos();
 
-                AsciiTable at = new AsciiTable();
+            AsciiTable at = new AsciiTable();
+            at.addRule();
+            at.addRow("Carteirinha", "Nome", "Data de Associação", "Documento");
+            at.addRule();
+            for (SocioDto socio : socioDtoList) {
+                at.addRow(socio.getCarteirinha(), socio.getNome(), socio.getDataAssociacao().toString(), socio.getDocumento().toString());
                 at.addRule();
-                at.addRow("Carteirinha", "Nome", "Data de Associação", "Documento");
-                at.addRule();
-                for (SocioDto socio : socioDtoList) {
-                    at.addRow(socio.getCarteirinha(), socio.getNome(), socio.getDataAssociacao().toString(), socio.getDocumento().toString());
-                    at.addRule();
-                }
-                System.out.println(at.render());
-                System.out.println("Total de sócios: " + socioDtoList.size());
+            }
+            System.out.println(at.render());
+            System.out.println("Total de sócios: " + socioDtoList.size());
 
             menuSocio(scanner);
 
@@ -107,19 +95,20 @@ public class MenuSocio {
             System.out.println("Digite o nome/documento do sócio que deseja atualizar:");
             String nomeOuDocumento = scanner.nextLine();
 
+            SocioDto socioDto = SocioService.getInstance().buscar(nomeOuDocumento).get();
             SocioDto socio = new SocioDto();
 
-            System.out.println("Digite o novo nome do sócio:");
+            System.out.println("Digite o novo nome do sócio - nome atual: " + socioDto.getNome());
             String nome = scanner.nextLine();
             socio.setNome(nome);
 
-            System.out.println("Escolha o novo tipo de documento:");
+            System.out.println("Escolha o novo tipo de documento - documento atual: " + socioDto.getDocumento().toString());
 
             String opcao;
             do {
                 System.out.println("1 - CPF");
                 System.out.println("2 - RG");
-                System.out.println("Digite o número da opção desejada:");
+                System.out.println("Digite o número da opção desejada: - documento atual: " + socioDto.getDocumento().toString());
                 opcao = scanner.nextLine();
             }
             while (!opcao.equals("1") && !opcao.equals("2"));

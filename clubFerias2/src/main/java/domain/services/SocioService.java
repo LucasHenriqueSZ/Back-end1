@@ -1,12 +1,16 @@
 package domain.services;
 
 import application.dto.socioDto.SocioDto;
+import br.com.caelum.stella.validation.CPFValidator;
 import domain.mappers.SocioMapper;
 import domain.services.util.ExceptionsMessages.ExceptionsSocioMessages;
 import domain.services.util.GeradorCodigoCarteirinha;
 import infrastructure.RegistroUtilizacaoDao;
 import infrastructure.SocioDao;
 import infrastructure.entities.socio.Socio;
+import infrastructure.entities.socio.documentos.Cpf;
+import infrastructure.entities.socio.documentos.Documento;
+import infrastructure.entities.socio.documentos.Rg;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -59,7 +63,6 @@ public class SocioService {
 
     public void remover(String nomeOudocumento) {
         try {
-            // falta verificar se nenhum registro de utilização esta usando
             nomeOudocumento = tratarEspacamentoNome(nomeOudocumento);
             verificarNomeOuDocumento(nomeOudocumento);
 
@@ -162,7 +165,7 @@ public class SocioService {
             throw new IllegalArgumentException(ExceptionsSocioMessages.NOME_DEVE_CONTER_APENAS_LETRAS.getMensagem());
         if (socio.getDocumento() == null)
             throw new IllegalArgumentException(ExceptionsSocioMessages.DOCUMENTO_NULO.getMensagem());
-        if (!socio.getDocumento().validarDocumento())
+        if (!validarDocumento(socio.getDocumento()))
             throw new IllegalArgumentException(ExceptionsSocioMessages.DOCUMENTO_INVALIDO.getMensagem());
     }
 
@@ -194,5 +197,59 @@ public class SocioService {
             nome = nome.substring(0, nome.length() - 1);
         }
         return nome;
+    }
+
+    private boolean validarDocumento(Documento documento) {
+        if (documento instanceof Cpf) {
+            return validadorCPF(documento.getNumero());
+        } else if (documento instanceof Rg) {
+            return validadorRg(documento.getNumero());
+        }
+        return false;
+    }
+
+    private boolean validadorCPF(String numero) {
+        numero = numero.trim().replace("[^\\d]", "");
+        CPFValidator cpfValidator = new CPFValidator();
+        return cpfValidator.invalidMessagesFor(numero).isEmpty();
+    }
+
+    private boolean validadorRg(String numero) {
+        if (numero == null || numero.trim().isEmpty() || !numero.matches("[0-9X]+") || numero.length() != 9) {
+            return false;
+        }
+
+        String verifiedNumber = numero.trim();
+
+        String lastDigit = verifiedNumber.substring(verifiedNumber.length() - 1);
+
+        if (lastDigit.equals("X")) {
+            lastDigit = "10";
+        } else if (lastDigit.equals("0")) {
+            lastDigit = "11";
+        }
+
+        verifiedNumber = verifiedNumber.substring(0, verifiedNumber.length() - 1);
+
+        String digito = descobrirDigito(verifiedNumber);
+        return digito.equals(lastDigit);
+    }
+
+    private String descobrirDigito(String rg) {
+        char[] digits = rg.toCharArray();
+        int[] totals = new int[digits.length];
+        int total = 0;
+
+        for (int i = 0; i < digits.length; i++) {
+            totals[i] = Character.getNumericValue(digits[i]) * (2 + i);
+        }
+
+        for (int numero : totals) {
+            total += numero;
+        }
+
+        int resto = total % 11;
+
+        return String.valueOf(11 - resto);
     }
 }

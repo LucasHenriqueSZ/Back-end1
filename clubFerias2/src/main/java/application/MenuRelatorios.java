@@ -29,18 +29,13 @@ public class MenuRelatorios {
         String opcao = scanner.nextLine();
 
         switch (opcao) {
-            case "1":
-                tempoTotalUso(scanner);
-                break;
-            case "2":
-                tempoTotalUsoSocioCategoria(scanner);
-                break;
-            case "3":
-                MenuPrincipal.getInstance().menuPricipal(scanner);
-                break;
-            default:
+            case "1" -> tempoTotalUso(scanner);
+            case "2" -> tempoTotalUsoSocioCategoria(scanner);
+            case "3" -> MenuPrincipal.getInstance().menuPricipal(scanner);
+            default -> {
                 System.out.println("Opção inválida");
                 menuRelatorios(scanner);
+            }
         }
     }
 

@@ -35,30 +35,17 @@ public class MenuCategoriaEspaco {
         String opcao = scanner.nextLine();
 
         switch (opcao) {
-            case "1":
-                cadastrarCategoria(scanner);
-                break;
-            case "2":
-                editarCategoria(scanner);
-                break;
-            case "3":
-                removerCategoria(scanner);
-                break;
-            case "4":
-                listarCategorias(scanner);
-                break;
-            case "5":
-                 buscarCategoria(scanner);
-                break;
-            case "6":
-                MenuEspacoClub.getInstance().menuEspaco(scanner);
-                break;
-            case "7":
-                MenuPrincipal.getInstance().menuPricipal(scanner);
-                break;
-            default:
+            case "1" -> cadastrarCategoria(scanner);
+            case "2" -> editarCategoria(scanner);
+            case "3" -> removerCategoria(scanner);
+            case "4" -> listarCategorias(scanner);
+            case "5" -> buscarCategoria(scanner);
+            case "6" -> MenuEspacoClub.getInstance().menuEspaco(scanner);
+            case "7" -> MenuPrincipal.getInstance().menuPricipal(scanner);
+            default -> {
                 System.out.println("Opção inválida");
                 menuCategoria(scanner);
+            }
         }
     }
 
@@ -67,10 +54,12 @@ public class MenuCategoriaEspaco {
             System.out.println("Digite o nome da categoria que deseja atualizar:");
             String nomeCategoria = scanner.nextLine();
 
-            System.out.println("Digite o novo nome da categoria:");
+            CategoriaEspacoDto categoria = CategoriaEspacoService.getInstance().buscarCategoria(nomeCategoria);
+
+            System.out.println("Digite o novo nome da categoria - nome atual: " + categoria.getNome());
             String novoNomeCategoria = scanner.nextLine();
 
-            CategoriaEspacoDto categoriaAtualizada = new CategoriaEspacoDto(novoNomeCategoria,null);
+            CategoriaEspacoDto categoriaAtualizada = new CategoriaEspacoDto(novoNomeCategoria, null);
 
             CategoriaEspacoService.getInstance().editarCategoria(nomeCategoria, categoriaAtualizada);
             System.out.println("Categoria editada com sucesso");
