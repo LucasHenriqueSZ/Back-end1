@@ -13,9 +13,9 @@ public class EspacoClubDao implements DaoGenerico<EspacoClub> {
 
     private static EspacoClubDao instance;
 
-    private RecuperadorRegistros<EspacoClub> recuperadorRegistros;
+    private final RecuperadorRegistros<EspacoClub> recuperadorRegistros;
 
-    private GravadorRegistros<EspacoClub> gravadorRegistros;
+    private final GravadorRegistros<EspacoClub> gravadorRegistros;
 
     private EspacoClubDao() {
         Gson gson = new Gson();
@@ -32,56 +32,89 @@ public class EspacoClubDao implements DaoGenerico<EspacoClub> {
     }
 
     @Override
-    public void salvar(EspacoClub entity) throws IOException {
-        List<EspacoClub> espacos = recuperadorRegistros.lerArquivo();
+    public void salvar(EspacoClub entity) {
+        List<EspacoClub> espacos = null;
+        try {
+            espacos = recuperadorRegistros.lerArquivo();
 
-        espacos.add(entity);
+            espacos.add(entity);
 
-        gravadorRegistros.salvarLista(espacos);
+            gravadorRegistros.salvarLista(espacos);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public void atualizar(EspacoClub entity) throws IOException {
-        List<EspacoClub> espacos = recuperadorRegistros.lerArquivo();
+    public void atualizar(EspacoClub entity) {
+        List<EspacoClub> espacos = null;
+        try {
+            espacos = recuperadorRegistros.lerArquivo();
 
-        for (int i = 0; i < espacos.size(); i++) {
-            if (espacos.get(i).getCodigo().equalsIgnoreCase(entity.getCodigo())) {
-                espacos.set(i, entity);
-                break;
+            for (int i = 0; i < espacos.size(); i++) {
+                if (espacos.get(i).getCodigo().equalsIgnoreCase(entity.getCodigo())) {
+                    espacos.set(i, entity);
+                    break;
+                }
             }
+
+            gravadorRegistros.salvarLista(espacos);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
-        gravadorRegistros.salvarLista(espacos);
     }
 
     @Override
-    public void deletar(EspacoClub entity) throws IOException {
-        List<EspacoClub> espacos = recuperadorRegistros.lerArquivo();
+    public void deletar(EspacoClub entity) {
+        List<EspacoClub> espacos = null;
+        try {
+            espacos = recuperadorRegistros.lerArquivo();
 
-        espacos.removeIf(espaco -> espaco.getCodigo().equalsIgnoreCase(entity.getCodigo()));
+            espacos.removeIf(espaco -> espaco.getCodigo().equalsIgnoreCase(entity.getCodigo()));
 
-        gravadorRegistros.salvarLista(espacos);
+            gravadorRegistros.salvarLista(espacos);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public Optional<EspacoClub> buscarPorCodigo(String codigo) throws IOException {
-        List<EspacoClub> espacos = recuperadorRegistros.lerArquivo();
+    public Optional<EspacoClub> buscarPorCodigo(String codigo) {
+        List<EspacoClub> espacos = null;
+        try {
+            espacos = recuperadorRegistros.lerArquivo();
 
-        return espacos.stream()
-                .filter(espaco -> espaco.getCodigo().equalsIgnoreCase(codigo))
-                .findFirst();
+            return espacos.stream()
+                    .filter(espaco -> espaco.getCodigo().equalsIgnoreCase(codigo))
+                    .findFirst();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public List<EspacoClub> buscarTodos() throws IOException {
-        return recuperadorRegistros.lerArquivo();
+    public List<EspacoClub> buscarTodos() {
+        try {
+            return recuperadorRegistros.lerArquivo();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public Optional<EspacoClub> buscarPorNome(String nome) throws IOException {
-        List<EspacoClub> espacos = recuperadorRegistros.lerArquivo();
+    public Optional<EspacoClub> buscarPorNome(String nome) {
+        List<EspacoClub> espacos = null;
+        try {
+            espacos = recuperadorRegistros.lerArquivo();
 
-        return espacos.stream()
-                .filter(espaco -> espaco.getNome().equalsIgnoreCase(nome))
-                .findFirst();
+            return espacos.stream()
+                    .filter(espaco -> espaco.getNome().equalsIgnoreCase(nome))
+                    .findFirst();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -7,14 +7,13 @@ import infrastructure.CategoriaEspacoDao;
 import infrastructure.entities.CategoriaEspaco;
 import infrastructure.entities.EspacoClub;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 public class EspacoClubMapper {
 
-    public static EspacoClub mapToEntity(EspacoClubDto espacoClubDto) throws IOException {
+    public static EspacoClub mapToEntity(EspacoClubDto espacoClubDto) {
         EspacoClub espacoClub = new EspacoClub(espacoClubDto.getNome(), espacoClubDto.getDescricao(),
                 espacoClubDto.getLotacaoMaxima(), new HashSet<>(), espacoClubDto.getCodigo());
         if (espacoClubDto.getCategorias() != null) {
@@ -32,7 +31,7 @@ public class EspacoClubMapper {
         return espacoClub;
     }
 
-    public static EspacoClubDto mapToDto(EspacoClub espacoClub) throws IOException {
+    public static EspacoClubDto mapToDto(EspacoClub espacoClub) {
         EspacoClubDto espacoClubDto = new EspacoClubDto(espacoClub.getNome(), espacoClub.getDescricao(), espacoClub.getLotacaoMaxima(),
                 new HashSet<>(), espacoClub.getCodigo());
 
@@ -47,7 +46,7 @@ public class EspacoClubMapper {
         return espacoClubDto;
     }
 
-    public static List<EspacoClubDto> mapToDtoList(List<EspacoClub> espacos) throws IOException {
+    public static List<EspacoClubDto> mapToDtoList(List<EspacoClub> espacos) {
         List<EspacoClubDto> espacoClubDtos = new ArrayList<>();
         for (EspacoClub espaco : espacos) {
             espacoClubDtos.add(mapToDto(espaco));

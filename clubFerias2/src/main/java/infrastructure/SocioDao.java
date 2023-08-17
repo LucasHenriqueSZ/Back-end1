@@ -18,18 +18,18 @@ public class SocioDao implements DaoGenerico<Socio> {
 
     private static SocioDao instance;
 
-    private RecuperadorRegistros<Socio> recuperadorRegistros;
+    private final RecuperadorRegistros<Socio> recuperadorRegistros;
 
-    private GravadorRegistros<Socio> gravadorRegistros;
+    private final GravadorRegistros<Socio> gravadorRegistros;
 
     private SocioDao() {
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-               .registerTypeAdapter(Documento.class, new InterfaceAdapter())
+                .registerTypeAdapter(Documento.class, new InterfaceAdapter())
                 .create();
         String FILE_PATH = "dados/socios.json";
-        recuperadorRegistros = new RecuperadorRegistros<>(FILE_PATH, gson , Socio.class);
+        recuperadorRegistros = new RecuperadorRegistros<>(FILE_PATH, gson, Socio.class);
         gravadorRegistros = new GravadorRegistros<>(FILE_PATH, gson, Socio.class);
     }
 
@@ -41,56 +41,82 @@ public class SocioDao implements DaoGenerico<Socio> {
     }
 
     @Override
-    public void salvar(Socio entity) throws IOException {
-        List<Socio> socios = recuperadorRegistros.lerArquivo();
+    public void salvar(Socio entity) {
+        try {
+            List<Socio> socios = recuperadorRegistros.lerArquivo();
 
-        socios.add(entity);
+            socios.add(entity);
 
-        gravadorRegistros.salvarLista(socios);
-    }
-
-    @Override
-    public void atualizar(Socio entity) throws IOException {
-        List<Socio> socios = recuperadorRegistros.lerArquivo();
-
-        for (int i = 0; i < socios.size(); i++) {
-            if (socios.get(i).getCarteirinha().equals(entity.getCarteirinha())) {
-                socios.set(i, entity);
-                break;
-            }
+            gravadorRegistros.salvarLista(socios);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-
-        gravadorRegistros.salvarLista(socios);
     }
 
     @Override
-    public void deletar(Socio entity) throws IOException {
-        List<Socio> socios = recuperadorRegistros.lerArquivo();
+    public void atualizar(Socio entity) {
+        try {
+            List<Socio> socios = recuperadorRegistros.lerArquivo();
 
-        socios.removeIf(socio -> socio.getCarteirinha().equals(entity.getCarteirinha()));
+            for (int i = 0; i < socios.size(); i++) {
+                if (socios.get(i).getCarteirinha().equals(entity.getCarteirinha())) {
+                    socios.set(i, entity);
+                    break;
+                }
+            }
 
-        gravadorRegistros.salvarLista(socios);
+            gravadorRegistros.salvarLista(socios);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public Optional<Socio> buscarPorCodigo(String codigo) throws IOException {
-        List<Socio> socios = recuperadorRegistros.lerArquivo();
+    public void deletar(Socio entity) {
+        try {
+            List<Socio> socios = recuperadorRegistros.lerArquivo();
 
-        return socios.stream()
-                .filter(socio -> socio.getCarteirinha().equals(codigo))
-                .findFirst();
+            socios.removeIf(socio -> socio.getCarteirinha().equals(entity.getCarteirinha()));
+
+            gravadorRegistros.salvarLista(socios);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public List<Socio> buscarTodos() throws IOException {
-        return recuperadorRegistros.lerArquivo();
+    public Optional<Socio> buscarPorCodigo(String codigo) {
+        List<Socio> socios = null;
+        try {
+            socios = recuperadorRegistros.lerArquivo();
+
+            return socios.stream()
+                    .filter(socio -> socio.getCarteirinha().equals(codigo))
+                    .findFirst();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public Optional<Socio> buscarPorNomeOuDocumento(String nomeOudocumento) throws IOException {
-        List<Socio> socios = recuperadorRegistros.lerArquivo();
+    @Override
+    public List<Socio> buscarTodos() {
+        try {
+            return recuperadorRegistros.lerArquivo();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-        return socios.stream()
-                .filter(socio -> socio.getNome().equalsIgnoreCase(nomeOudocumento) || socio.getDocumento().getNumero().equalsIgnoreCase(nomeOudocumento))
-                .findFirst();
+    public Optional<Socio> buscarPorNomeOuDocumento(String nomeOudocumento) {
+        List<Socio> socios = null;
+        try {
+            socios = recuperadorRegistros.lerArquivo();
+
+            return socios.stream()
+                    .filter(socio -> socio.getNome().equalsIgnoreCase(nomeOudocumento) || socio.getDocumento().getNumero().equalsIgnoreCase(nomeOudocumento))
+                    .findFirst();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

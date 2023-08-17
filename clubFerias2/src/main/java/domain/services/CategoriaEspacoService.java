@@ -9,7 +9,6 @@ import infrastructure.EspacoClubDao;
 import infrastructure.entities.CategoriaEspaco;
 import infrastructure.entities.EspacoClub;
 
-import java.io.IOException;
 import java.util.List;
 
 public class CategoriaEspacoService {
@@ -103,7 +102,7 @@ public class CategoriaEspacoService {
         }
     }
 
-    private void verificarCategoriaJaCadastrada(CategoriaEspaco categoria) throws IOException {
+    private void verificarCategoriaJaCadastrada(CategoriaEspaco categoria) {
         List<CategoriaEspaco> categorias = CategoriaEspacoDao.getInstance().buscarTodos();
 
         for (CategoriaEspaco categoriaEspaco : categorias) {
@@ -129,7 +128,7 @@ public class CategoriaEspacoService {
             throw new IllegalArgumentException(ExceptionsCategoriaEspacoMessages.NOME_DEVE_CONTER_APENAS_LETRAS_OU_NUMEROS.getMensagem());
     }
 
-    private void verificaEspacoUtilizandoCategoria(String codigoCategoria) throws IOException {
+    private void verificaEspacoUtilizandoCategoria(String codigoCategoria) {
         List<EspacoClub> espacos = EspacoClubDao.getInstance().buscarTodos();
 
         for (EspacoClub espaco : espacos) {

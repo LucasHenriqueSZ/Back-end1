@@ -18,9 +18,9 @@ public class RegistroUtilizacaoDao implements DaoGenerico<RegistroUtilizacao> {
 
     private static RegistroUtilizacaoDao instance;
 
-    private RecuperadorRegistros<RegistroUtilizacao> recuperadorRegistros;
+    private final RecuperadorRegistros<RegistroUtilizacao> recuperadorRegistros;
 
-    private GravadorRegistros<RegistroUtilizacao> gravadorRegistros;
+    private final GravadorRegistros<RegistroUtilizacao> gravadorRegistros;
 
     private RegistroUtilizacaoDao() {
         Gson gson = new GsonBuilder()
@@ -42,48 +42,69 @@ public class RegistroUtilizacaoDao implements DaoGenerico<RegistroUtilizacao> {
     }
 
     @Override
-    public void salvar(RegistroUtilizacao entity) throws IOException {
-        List<RegistroUtilizacao> registros = recuperadorRegistros.lerArquivo();
+    public void salvar(RegistroUtilizacao entity) {
+        try {
+            List<RegistroUtilizacao> registros = recuperadorRegistros.lerArquivo();
 
-        registros.add(entity);
+            registros.add(entity);
 
-        gravadorRegistros.salvarLista(registros);
-    }
-
-    @Override
-    public void atualizar(RegistroUtilizacao entity) throws IOException {
-        List<RegistroUtilizacao> registros = recuperadorRegistros.lerArquivo();
-
-        for (int i = 0; i < registros.size(); i++) {
-            if (registros.get(i).getCodigoRegistro().equals(entity.getCodigoRegistro())) {
-                registros.set(i, entity);
-                break;
-            }
+            gravadorRegistros.salvarLista(registros);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-
-        gravadorRegistros.salvarLista(registros);
     }
 
     @Override
-    public void deletar(RegistroUtilizacao entity) throws IOException {
-        List<RegistroUtilizacao> registros = recuperadorRegistros.lerArquivo();
+    public void atualizar(RegistroUtilizacao entity) {
+        try {
+            List<RegistroUtilizacao> registros = recuperadorRegistros.lerArquivo();
 
-        registros.removeIf(registro -> registro.getCodigoRegistro().equals(entity.getCodigoRegistro()));
+            for (int i = 0; i < registros.size(); i++) {
+                if (registros.get(i).getCodigoRegistro().equals(entity.getCodigoRegistro())) {
+                    registros.set(i, entity);
+                    break;
+                }
+            }
 
-        gravadorRegistros.salvarLista(registros);
+            gravadorRegistros.salvarLista(registros);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public Optional<RegistroUtilizacao> buscarPorCodigo(String codigo) throws IOException {
-        List<RegistroUtilizacao> registros = recuperadorRegistros.lerArquivo();
+    public void deletar(RegistroUtilizacao entity) {
+        try {
+            List<RegistroUtilizacao> registros = recuperadorRegistros.lerArquivo();
 
-        return registros.stream()
-                .filter(registro -> registro.getCodigoRegistro().equals(codigo))
-                .findFirst();
+            registros.removeIf(registro -> registro.getCodigoRegistro().equals(entity.getCodigoRegistro()));
+
+            gravadorRegistros.salvarLista(registros);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public List<RegistroUtilizacao> buscarTodos() throws IOException {
-        return recuperadorRegistros.lerArquivo();
+    public Optional<RegistroUtilizacao> buscarPorCodigo(String codigo) {
+        List<RegistroUtilizacao> registros = null;
+        try {
+            registros = recuperadorRegistros.lerArquivo();
+
+            return registros.stream()
+                    .filter(registro -> registro.getCodigoRegistro().equals(codigo))
+                    .findFirst();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<RegistroUtilizacao> buscarTodos() {
+        try {
+            return recuperadorRegistros.lerArquivo();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

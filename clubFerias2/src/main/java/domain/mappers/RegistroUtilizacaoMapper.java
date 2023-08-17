@@ -7,11 +7,10 @@ import domain.services.util.ExceptionsMessages.ExceptionsEspacoClubMessages;
 import domain.services.util.ExceptionsMessages.ExceptionsSocioMessages;
 import infrastructure.entities.RegistroUtilizacao;
 
-import java.io.IOException;
 import java.util.List;
 
 public class RegistroUtilizacaoMapper {
-    public static RegistroUtilizacao mapToEntity(RegistroUtilizacaoDto registroUtilizacaoDto) throws IOException {
+    public static RegistroUtilizacao mapToEntity(RegistroUtilizacaoDto registroUtilizacaoDto) {
         RegistroUtilizacao registroUtilizacao = new RegistroUtilizacao();
         registroUtilizacao.setDataUtilizacao(registroUtilizacaoDto.getDataUtilizacao());
         registroUtilizacao.setHoraSaida(registroUtilizacaoDto.getHoraSaida());

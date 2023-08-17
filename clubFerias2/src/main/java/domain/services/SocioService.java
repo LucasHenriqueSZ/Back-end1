@@ -8,7 +8,6 @@ import infrastructure.RegistroUtilizacaoDao;
 import infrastructure.SocioDao;
 import infrastructure.entities.socio.Socio;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -125,7 +124,7 @@ public class SocioService {
         }
     }
 
-    private void verificarSocioJaCadastrado(Socio socioAtualizado) throws IOException {
+    private void verificarSocioJaCadastrado(Socio socioAtualizado) {
         List<Socio> socios = SocioDao.getInstance().buscarTodos();
 
         for (Socio socio : socios) {
@@ -135,7 +134,7 @@ public class SocioService {
         }
     }
 
-    private void verificarDocumentoDuplicado(Socio socioAtualizado) throws IOException {
+    private void verificarDocumentoDuplicado(Socio socioAtualizado) {
         List<Socio> socios = SocioDao.getInstance().buscarTodos();
 
         for (Socio socio : socios) {
@@ -182,7 +181,7 @@ public class SocioService {
         }
     }
 
-    private void verificarSocioEmRegistroUtilizacao(String carteirinha) throws IOException {
+    private void verificarSocioEmRegistroUtilizacao(String carteirinha) {
         RegistroUtilizacaoDao.getInstance().buscarTodos().forEach(registro -> {
             if (registro.getCodigoEspaco().equalsIgnoreCase(carteirinha))
                 throw new IllegalArgumentException(ExceptionsSocioMessages.SOCIO_EM_REGISTRO_UTILIZACAO.getMensagem());

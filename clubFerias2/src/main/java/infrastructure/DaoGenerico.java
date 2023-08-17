@@ -6,10 +6,10 @@ import java.util.Optional;
 
 public interface DaoGenerico<T> {
 
-    void salvar(T entity) throws IOException;
-    void atualizar(T entity) throws IOException;
-    void deletar(T entity) throws IOException;
-    Optional<T> buscarPorCodigo(String codigo) throws IOException;
+    void salvar(T entity);
+    void atualizar(T entity);
+    void deletar(T entity);
+    Optional<T> buscarPorCodigo(String codigo);
 
-    List<T> buscarTodos() throws IOException;
+    List<T> buscarTodos();
 }

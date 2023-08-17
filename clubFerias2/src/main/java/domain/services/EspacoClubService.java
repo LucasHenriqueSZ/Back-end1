@@ -8,7 +8,6 @@ import infrastructure.EspacoClubDao;
 import infrastructure.RegistroUtilizacaoDao;
 import infrastructure.entities.EspacoClub;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -120,7 +119,7 @@ public class EspacoClubService {
         }
     }
 
-    private void verificarEspacoJaCadastrado(EspacoClub espaco) throws IOException {
+    private void verificarEspacoJaCadastrado(EspacoClub espaco)  {
         List<EspacoClub> espacos = EspacoClubDao.getInstance().buscarTodos();
         for (EspacoClub espacoClub : espacos) {
             if (espacoClub.getNome().equalsIgnoreCase(espaco.getNome()) && espacoClub.getCodigo() != espaco.getCodigo())
@@ -153,7 +152,7 @@ public class EspacoClubService {
             throw new IllegalArgumentException(ExceptionsEspacoClubMessages.NOME_MAXIMO.getMensagem());
     }
 
-    private void verificarEspacoEmRegistroUtilizacao(String codigo) throws IOException {
+    private void verificarEspacoEmRegistroUtilizacao(String codigo) {
         RegistroUtilizacaoDao.getInstance().buscarTodos().forEach(registro -> {
             if (registro.getCodigoEspaco().equalsIgnoreCase(codigo))
                 throw new IllegalArgumentException(ExceptionsEspacoClubMessages.ESPACO_EM_REGISTRO_UTILIZACAO.getMensagem());

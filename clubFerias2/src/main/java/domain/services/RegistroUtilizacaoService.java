@@ -7,7 +7,6 @@ import domain.services.util.GeradorCodigo;
 import infrastructure.RegistroUtilizacaoDao;
 import infrastructure.entities.RegistroUtilizacao;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -115,7 +114,7 @@ public class RegistroUtilizacaoService {
         }
     }
 
-    private void verificarRegistroJaCadastrado(RegistroUtilizacao registroUtilizacao) throws IOException {
+    private void verificarRegistroJaCadastrado(RegistroUtilizacao registroUtilizacao){
         List<RegistroUtilizacao> registros = RegistroUtilizacaoDao.getInstance().buscarTodos();
 
         for (RegistroUtilizacao registro : registros) {
